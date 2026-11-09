@@ -34,3 +34,5 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 spec: start (round 4, fold in Q2)
 - 2026-11-09 spec: Q2 folded into step 9, criterion 11 (new e2e "removing the code after a rejected one drops the kept sentence") and the kept row; no questions
 - 2026-11-09 refine: after-shots taken (274 in shots/after/)
+- 2026-11-09 validate: start (round 1)
+- 2026-11-09 validate: round 1 — 3 required (route shots without state, light-mode receipt text, DiscountApplied narrow story), 5 optional; design 7.2/10
