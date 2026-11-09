@@ -28,3 +28,9 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 refine: start (from explorations-0001-discount-code-receipt-b--matrix)
 - 2026-11-09 refine: built (d0655a1, baselines 18c4e6d), pnpm check green per refiner; 2 questions
 - 2026-11-09 waiting (refine): Q1 Apply wraps under the field at 375 px while loading (Button grows 87→111 px) — (a) keep basis-3/5, (b) basis-7/12 and drop "wraps at 320 px" from criterion 21, (c) widen scope to Button/** so loading keeps its width; Q2 confirm: Remove during a kept error keeps the error but drops "{applied} is still in your total."
+- 2026-11-09 decision (refine): Q1 (a) keep basis-3/5; Apply may wrap under the field at 375 px while loading — the 600 ms shift leaves focus on Apply and nothing is lost by: agent
+- 2026-11-09 follow-up: Button changes width while loading, which moves every loading Button; its own ds change after this one (one request, one change) by: agent
+- 2026-11-09 decision (refine): Q2 Remove during a kept error keeps the error and drops "{applied} is still in your total." — after Remove that sentence is false by: agent
+- 2026-11-09 spec: start (round 4, fold in Q2)
+- 2026-11-09 spec: Q2 folded into step 9, criterion 11 (new e2e "removing the code after a rejected one drops the kept sentence") and the kept row; no questions
+- 2026-11-09 refine: after-shots taken (274 in shots/after/)
