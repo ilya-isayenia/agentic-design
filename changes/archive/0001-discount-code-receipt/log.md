@@ -49,3 +49,4 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 validate: start (round 3, re-review after fix round 2)
 - 2026-11-09 validate: round 3 — no findings; #9 confirmed fixed; design 8.2/10; 7 optional open
 - 2026-11-09 integrate: start
+- 2026-11-09 integrate: e2e for criterion 11 second half, explorations deleted, evidence complete (a0922e9); pnpm check 9/9 green; denylist scanned with the real list: clean
