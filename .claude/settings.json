@@ -8,13 +8,27 @@
       "Bash(git diff*)",
       "Bash(git log*)",
       "Bash(git switch*)",
+      "Bash(git fetch*)",
+      "Bash(git pull --ff-only*)",
+      "Bash(git merge --ff-only*)",
+      "Bash(git checkout -b *)",
+      "Bash(git checkout main)",
+      "Bash(git checkout change/*)",
+      "Bash(git branch --list*)",
+      "Bash(git branch -a*)",
+      "Bash(git branch --show-current)",
+      "Bash(git branch change/*)",
+      "Bash(git rev-parse*)",
+      "Bash(git show*)",
+      "Bash(git ls-files*)",
       "Bash(git add*)",
       "Bash(git commit*)",
       "Bash(git mv*)",
       "Bash(git push -u origin*)",
       "Bash(gh pr create*)",
       "Bash(gh pr list*)",
-      "Bash(gh pr view*)"
+      "Bash(gh pr view*)",
+      "Bash(git push origin*)"
     ],
     "deny": [
       "Edit(/.claude/**)",
@@ -34,7 +48,13 @@
       "Bash(git commit --no-verify*)",
       "Bash(gh pr merge*)",
       "Bash(gh repo edit*)",
-      "Bash(gh repo delete*)"
+      "Bash(gh repo delete*)",
+      "Bash(git branch -d*)",
+      "Bash(git branch -D*)",
+      "Bash(git branch --delete*)",
+      "Bash(git push * --delete*)",
+      "Bash(git push origin :*)",
+      "Bash(git push * +*)"
     ]
   }
 }

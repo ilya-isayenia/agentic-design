@@ -24,7 +24,7 @@ Arguments: `$ARGUMENTS`
 A new change:
 
 1. `git switch main && git pull --ff-only` (skip the pull if there is no remote). The tree must be clean; if not, stop and say what is dirty.
-2. Id: the highest `NNNN` in `changes/` and `changes/archive/`, plus one, four digits. Slug: 2–4 words of the request in kebab case.
+2. Id: `git fetch --prune` (skip if no remote), then `pnpm evidence --next-id`: the highest `NNNN` among the folders in `changes/` and `changes/archive/` and the open `change/*` branches (`git branch -a --list '*change/*'`), plus one, four digits. This keeps ids unique while another change's PR is open. Slug: 2–4 words of the request in kebab case.
 3. `git switch -c change/<id>-<slug>`.
 4. Create `changes/<id>-<slug>/` with `change.md` and `log.md` from `templates/`. Fill `request` with the request verbatim.
 

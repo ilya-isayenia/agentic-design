@@ -8,12 +8,27 @@ import { basename, join, relative } from 'node:path';
 const STATES = ['loading', 'empty', 'error', 'partial', 'success', 'permission'];
 const BRANDS = ['pulse', 'volt', 'lumen'];
 
+const git = (/** @type {string[]} */ a) => spawnSync('git', a, { encoding: 'utf8' }).stdout.trim();
+
+// `pnpm evidence --next-id` prints the next change id: 1 + the highest NNNN among the folders in changes/ and
+// changes/archive/ on this checkout and the open change branches (change/NNNN-slug, local and remote).
+// Run `git fetch --prune` first so closed branches drop out.
+if (process.argv[2] === '--next-id') {
+  const ids = ['changes', 'changes/archive']
+    .flatMap((b) => (existsSync(b) ? readdirSync(b) : []))
+    .concat(git(['branch', '-a', '--list', '*change/*']).split('\n'))
+    .map((n) => /(?:^|[\s/])(\d{4})-/.exec(n)?.[1])
+    .filter(Boolean)
+    .map(Number);
+  console.log(String(Math.max(0, ...ids) + 1).padStart(4, '0'));
+  process.exit(0);
+}
+
 const id = process.argv[2];
 if (!id) {
-  console.error('usage: pnpm evidence <change-id>');
+  console.error('usage: pnpm evidence <change-id> | pnpm evidence --next-id');
   process.exit(2);
 }
-const git = (/** @type {string[]} */ a) => spawnSync('git', a, { encoding: 'utf8' }).stdout.trim();
 const read = (/** @type {string} */ f) => (existsSync(f) ? readFileSync(f, 'utf8') : '');
 const text = (/** @type {unknown} */ v) => typeof v === 'string' && v.trim().length > 0;
 
