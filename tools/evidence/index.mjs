@@ -94,7 +94,8 @@ const after = join(dir, 'shots', 'after');
 const shots = existsSync(after) ? readdirSync(after).filter((f) => f.endsWith('.png')) : [];
 for (const brand of BRANDS) {
   for (const mode of ['dark', 'light']) {
-    if (!shots.some((f) => f.includes(`--${brand}-${mode}--`))) missing.push(`shots/after: none for ${brand} ${mode}`);
+    // A Matrix shot (--all-themes--) shows every brand and mode at once.
+    if (!shots.some((f) => f.includes(`--${brand}-${mode}--`) || f.includes('--all-themes--'))) missing.push(`shots/after: none for ${brand} ${mode}`);
   }
 }
 
@@ -104,7 +105,7 @@ const branch = record.branch || git(['branch', '--show-current']);
 const archived = join('changes/archive', name);
 const link = (/** @type {string} */ path) => `${origin}/blob/${branch}/${path}`;
 const shotFolders = existsSync(join(dir, 'shots')) ? readdirSync(join(dir, 'shots')) : [];
-const pick = shots.filter((f) => f.endsWith('--1280.png') || f.endsWith('--375.png')).filter((f) => f.includes('-dark--') || f.includes('-light--'));
+const pick = shots.filter((f) => f.endsWith('--1280.png') || f.endsWith('--375.png')).filter((f) => f.includes('-dark--') || f.includes('-light--') || f.includes('--all-themes--'));
 const gallery = pick
   .filter((f, i, all) => all.findIndex((g) => g.split('--')[0] === f.split('--')[0] && g.split('--')[2] === f.split('--')[2]) === i || f.includes('pulse-dark'))
   .slice(0, 6)
