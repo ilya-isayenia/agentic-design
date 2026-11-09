@@ -60,6 +60,6 @@
   },
   "responsive": {
     "status": "pass",
-    "evidence": "visual tests/visual/app.spec.ts › step-3-duration-discount at 1280 (3 themes) and 375; e2e › the field and Apply share a row at 375 px and wrap at 320 px without overflow (AC 19, 21) (no horizontal scroll at either width)"
+    "evidence": "visual tests/visual/app.spec.ts › step-3-duration-discount, step-4-details-discount, step-5-verify-discount, success-discount (arden-north, Home club, 2 years, TEST-10 applied; success shows First payment €20) in all 6 themes at 375 and 1280; e2e › the field and Apply share a row at 375 px and wrap at 320 px without overflow (AC 19, 21) (no horizontal scroll at either width); story components-discountapplied--narrow and its Matrix row: Remove wraps under the note below 155 px, which the 236 px discount line at 320 px reaches with text at 200 %"
   }
 }

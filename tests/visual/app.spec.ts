@@ -21,15 +21,33 @@ const SCREENS: { name: string; path: string; state?: object; ready: (p: Page) =>
   { name: 'step-1-type', path: '#/join/arden-north/type', state: signup({ type: null, access: null, duration: null, detailsSubmitted: false }), ready: (p) => expect(p.getByRole('heading', { level: 1 })).toBeVisible() },
   { name: 'step-2-access', path: '#/join/arden-north/access', state: signup({ duration: null }), ready: (p) => expect(p.getByText('3 workouts per week')).toBeVisible() },
   { name: 'step-3-duration', path: '#/join/arden-north/duration', state: signup({}), ready: (p) => expect(p.getByText('First payment')).toBeVisible() },
-  { name: 'step-3-duration-discount', path: '#/join/arden-north/duration', state: signup({ access: 'home', duration: 'two-years', discountCode: 'TEST-10' }), ready: (p) => expect(p.getByText('TEST-10 applied', { exact: true })).toBeVisible() },
   { name: 'step-4-details', path: '#/join/arden-north/details', state: signup({ detailsSubmitted: false }), ready: (p) => expect(p.getByLabel('BIC')).toHaveValue('TESTNL2A') },
   { name: 'step-5-verify', path: '#/join/arden-north/verify', state: signup({}), ready: (p) => expect(p.getByText(/We sent a 6-digit code/)).toBeVisible() },
   { name: 'success', path: '#/success', state: signup({ verified: true }), ready: (p) => expect(p.getByRole('heading', { name: /You're in/ })).toBeVisible() },
 ];
 
-for (const theme of THEMES) {
+// Discount code in the receipt (change 0001): Home club, 2 years, TEST-10 applied, on every screen that
+// shows the receipt or the first payment, in all six themes at both widths.
+const discounted = (extra: object) => signup({ access: 'home', duration: 'two-years', discountCode: 'TEST-10', ...extra });
+const applied = (p: Page) => expect(p.getByText('TEST-10 applied', { exact: true })).toBeVisible();
+const DISCOUNT_SCREENS: typeof SCREENS = [
+  { name: 'step-3-duration-discount', path: '#/join/arden-north/duration', state: discounted({}), ready: applied },
+  { name: 'step-4-details-discount', path: '#/join/arden-north/details', state: discounted({ detailsSubmitted: false }), ready: applied },
+  { name: 'step-5-verify-discount', path: '#/join/arden-north/verify', state: discounted({}), ready: applied },
+  {
+    name: 'success-discount',
+    path: '#/success',
+    state: discounted({ verified: true }),
+    ready: (p) => expect(p.getByText('First payment').locator('xpath=following-sibling::dd[1]')).toHaveText('€20'),
+  },
+];
+const ALL_THEMES = ['pulse', 'volt', 'lumen'].flatMap((brand) =>
+  ['dark', 'light'].map((mode) => ({ brand, mode, widths: [1280, 375], screens: DISCOUNT_SCREENS })),
+);
+
+for (const theme of [...THEMES.map((t) => ({ ...t, screens: SCREENS })), ...ALL_THEMES]) {
   for (const width of theme.widths) {
-    for (const screen of SCREENS) {
+    for (const screen of theme.screens) {
       test(`app ${screen.name} ${theme.brand}-${theme.mode} ${width}`, async ({ page }) => {
         await page.clock.setFixedTime(NOW);
         await page.setViewportSize({ width, height: 900 });
