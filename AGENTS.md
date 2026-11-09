@@ -30,7 +30,7 @@ Active profile: **`stack-vue`** (`.claude/skills/stack-vue/`). Only that profile
 4. Copy is English and invented; test data is visibly fake. Never copy text, prices or names from reference material.
 5. `pnpm check` green means done; red means not done. Do not skip or weaken a check to make it pass.
 6. Visual baselines change only through `pnpm test:visual:update` in a separate commit `baselines: <reason>`.
-7. Not allowed for agents: editing `.claude/**`, `AGENTS.md`, `CLAUDE.md`, `.github/**`, baselines by hand; force-push; bypassing hooks. Ask the human instead.
+7. Not allowed for agents: editing `.claude/**`, `AGENTS.md`, `CLAUDE.md`, `.github/**`, baselines by hand; force-push; bypassing hooks; merging PRs. Ask the human instead. `.claude/settings.json` denies these edits for the Edit and Write tools; a shell command can still reach the files, so the rule is "not allowed", not "cannot".
 8. No local paths, personal names or secrets in the repository; `pnpm denylist` checks.
 
 ## Commands

@@ -15,6 +15,26 @@
       "Bash(gh pr create*)",
       "Bash(gh pr list*)",
       "Bash(gh pr view*)"
+    ],
+    "deny": [
+      "Edit(/.claude/**)",
+      "Write(/.claude/**)",
+      "Edit(/AGENTS.md)",
+      "Write(/AGENTS.md)",
+      "Edit(/CLAUDE.md)",
+      "Write(/CLAUDE.md)",
+      "Edit(/.github/**)",
+      "Write(/.github/**)",
+      "Edit(/tests/visual/baselines/**)",
+      "Write(/tests/visual/baselines/**)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git commit * --no-verify*)",
+      "Bash(git commit --no-verify*)",
+      "Bash(gh pr merge*)",
+      "Bash(gh repo edit*)",
+      "Bash(gh repo delete*)"
     ]
   }
 }
