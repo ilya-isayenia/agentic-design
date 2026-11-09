@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
-import tailwindcss from '@tailwindcss/vite';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 import { fileURLToPath } from 'node:url';
@@ -20,7 +19,7 @@ export default defineConfig({
         },
       },
       {
-        plugins: [vue(), tailwindcss(), storybookTest({ configDir: fileURLToPath(new URL('./.storybook', import.meta.url)) })],
+        plugins: [storybookTest({ configDir: fileURLToPath(new URL('./.storybook', import.meta.url)) })],
         resolve: { alias },
         test: {
           name: 'storybook',
