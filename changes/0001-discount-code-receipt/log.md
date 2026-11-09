@@ -18,3 +18,11 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 prototype: start (round 1)
 - 2026-11-09 prototype: round 1 — 3 variants (A applied row in footer; B applied state on the discount line; C field inside the receipt above the total); light-mode text race fixed in explorations; shots in shots/round-1/
 - 2026-11-09 waiting (prototype): variant choice for round 1; questions: TextField row slot vs own field markup; C needs a Receipt.vue slot and "Applied:" copy; Storybook light-mode colour race in production stories as a separate change
+- 2026-11-09 decision (prototype): variant B, applied state on the discount line, Remove on that line — the code shows once, the total does not move at 375 px, Receipt.vue needs no new slot by: agent
+- 2026-11-09 chosen: explorations-0001-discount-code-receipt-b--matrix (states: -b--default, -b--applying, -b--applied, -b--kept-on-error, -b--invalid)
+- 2026-11-09 decision (prototype): Q1 add an inline-action slot to TextField, with its contract, stories and Matrix; write scope widens to packages/ui/src/components/TextField/ — one field markup to maintain beats two by: agent
+- 2026-11-09 decision (prototype): Q2 keep the spec wording "{code} applied", not "Applied:" — screen and announcement match the spec by: agent
+- 2026-11-09 decision (prototype): Q3 no separate change — main 2c15b5e sets the Storybook theme before first render and shoots Matrix stories once; merged into this branch, the race workaround in explorations can go by: agent
+- 2026-11-09 spec: start (round 3, fold in variant B and the TextField slot)
+- 2026-11-09 spec: variant B and TextField action slot folded in — new DiscountApplied in a ReceiptLine `below` slot, line label "Discount" (assumption), TextField/** and DiscountApplied/** in scope; no questions
+- 2026-11-09 refine: start (from explorations-0001-discount-code-receipt-b--matrix)
