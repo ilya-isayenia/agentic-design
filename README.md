@@ -2,6 +2,8 @@
 
 A membership signup web app for an invented chain of gyms, built on its own multi-brand design system, and the Claude Code setup that makes every later change through one cycle: spec → prototypes → refinement → validation → integration.
 
+Learn, show and defend it: [overview](docs/overview.md) (the story of the system) · [demo](docs/demo.md) (a 15–20 minute script) · [defending](docs/defending.md) (hard questions, honest answers) · [practice](docs/practice.md) (learning tasks).
+
 | | |
 | --- | --- |
 | App | https://ilya-isayenia.github.io/agentic-design/ |

@@ -4,6 +4,8 @@ This repository is a membership signup app on its own design system, plus a Clau
 
 What it is and why: [`spec.md`](spec.md). Rules for agents: [`AGENTS.md`](../AGENTS.md).
 
+Learn, show and defend it: [overview](overview.md) (the story of the system) · [demo](demo.md) (a 15–20 minute script) · [defending](defending.md) (hard questions, honest answers) · [practice](practice.md) (learning tasks).
+
 ## 1. Install
 
 | Tool | Version | Check |

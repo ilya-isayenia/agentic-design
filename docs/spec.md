@@ -50,7 +50,7 @@ tools/                       contrast, shots, evidence, denylist; setup-repo.sh 
 
 **Spacing** 4 px base (4, 8, 12, 16, 24, 32, 48, 64). **Radius** 0, 4, 8, full. **Motion** 120/200/320 ms, two easings; everything respects `prefers-reduced-motion`.
 
-**Components:** Button (primary, secondary, ghost; sizes; loading), IconButton, TextField, Select, Checkbox, Radio and RadioGroup, Chip, Price (old/new, period), Stepper (number with − / +), StepIndicator (done, current, upcoming), PlanCard (title, perks, price, selected, promo ribbon), ClubCard (photo placeholder, perks, price, actions), ReceiptLine, Receipt, Banner (promo with countdown), Toast, Skeleton, EmptyState, ErrorState. **Charts** are hand-written SVG Vue components on the chart tokens, no chart library; none is built now (they are the candidate's changes).
+**Components:** Button (primary, secondary, ghost; sizes; loading), IconButton, TextField, Select, Checkbox, Radio and RadioGroup, Chip, Price (old/new, period), Stepper (number with − / +), StepIndicator (done, current, upcoming), PlanCard (title, perks, price, selected, promo ribbon), ClubCard (photo placeholder, perks, price, actions), ReceiptLine, Receipt, Banner (promo with countdown), Toast, Skeleton, EmptyState, ErrorState. **Charts** are hand-written SVG Vue components on the chart tokens, no chart library; none is built now (they are later changes, see docs/practice.md).
 
 **Contract** (`<Name>.contract.md`, one per component): purpose; props, slots, events; states; tokens used; accessibility (role, name, keyboard, focus, announcements); do and don't.
 
