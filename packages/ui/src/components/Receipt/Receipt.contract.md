@@ -31,7 +31,7 @@ No events.
 
 ## Tokens
 
-`surface`, `border`, `border-strong`, `text`, `text-muted`; `font-display`, `text-h3`, `text-body`, `text-small`, `font-semibold`, `font-extrabold`; `rounded-md`; spacing 1–8; `max-w-receipt`, `max-w-prose`.
+`surface`, `border`, `border-strong`, `text`, `text-muted`; `font-display`, `text-h3`, `text-body`, `text-small`, `font-semibold`, `font-extrabold`; `rounded-md`; spacing 1–8; `max-w-receipt`, `max-w-prose`. The `aside` sets `text` itself rather than inheriting it, so the club name and slotted lines read right in any theme container.
 
 ## Accessibility
 
