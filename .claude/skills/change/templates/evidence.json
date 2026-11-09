@@ -2,7 +2,10 @@
   "contract": "One sentence: what the change delivers and to whom.",
   "viewports": ["375", "1280"],
   "stories": ["components-name--matrix", "components-name--error"],
-  "routes": ["/#/join/arden-north/details"],
+  "routes": [
+    "/#/",
+    { "route": "/#/join/arden-north/duration", "session": { "signup": { "clubId": "arden-north", "type": "regular", "access": "home", "duration": "two-years" } } }
+  ],
   "states": {
     "loading": { "status": "pass", "evidence": "story components-name--loading; unit test name.test.ts › shows spinner" },
     "empty": { "status": "pass", "evidence": "…" },

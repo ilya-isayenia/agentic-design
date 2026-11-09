@@ -4,7 +4,9 @@
 //   --label <name>        sub-folder: before | round-1 | after | review (default: after)
 //   --stories a,b         Storybook story ids
 //   --routes r1,r2        app routes after '#', e.g. /join/arden-north/access
-//   --from-record         stories, routes and viewports from changes/<id>/evidence.json
+//   --session file.json   sessionStorage to set before each route, { "<key>": <value> } (e.g. the signup state)
+//   --from-record         stories, routes and viewports from changes/<id>/evidence.json; a route there is
+//                         a string or { "route": "/join/…", "session": { "signup": { … } } }
 //   --brands, --modes     default: all brands, both modes
 //   --viewports 375,1280  widths in CSS px (default 375,1280)
 //   --before              build Storybook and the app at the merge base with main, label "before"
@@ -45,12 +47,19 @@ const dir = changeDir();
 const before = flag('before');
 const label = before ? 'before' : opt('label', 'after');
 let stories = list(opt('stories'));
-let routes = list(opt('routes'));
+const globalSession = opt('session') ? JSON.parse(readFileSync(opt('session'), 'utf8')) : null;
+/** @type {{ route: string, session: Record<string, unknown> | null }[]} */
+let routes = list(opt('routes')).map((route) => ({ route, session: globalSession }));
 let viewports = list(opt('viewports', '375,1280')).map(Number);
 if (flag('from-record')) {
   const record = JSON.parse(readFileSync(join(dir, 'evidence.json'), 'utf8'));
   stories = [...stories, ...(record.stories ?? [])];
-  routes = [...routes, ...(record.routes ?? []).map((/** @type {string} */ r) => r.replace(/^.*#/, ''))];
+  routes = [
+    ...routes,
+    ...(record.routes ?? []).map((/** @type {any} */ r) =>
+      typeof r === 'string' ? { route: r.replace(/^.*#/, ''), session: globalSession } : { route: String(r.route).replace(/^.*#/, ''), session: r.session ?? globalSession },
+    ),
+  ];
   if (record.viewports?.length) viewports = record.viewports.map(Number);
 }
 if (!stories.length && !routes.length) {
@@ -105,8 +114,18 @@ try {
           await page.screenshot({ path: join(out, `${safe(story)}--${theme}--${width}.png`), fullPage: true, animations: 'disabled' });
           count++;
         }
-        for (const route of routes) {
-          await page.goto(`http://127.0.0.1:${port}/agentic-design/?brand=${brand}&mode=${mode}#${route}`);
+        for (const { route, session } of routes) {
+          const url = `http://127.0.0.1:${port}/agentic-design/?brand=${brand}&mode=${mode}#${route}`;
+          if (session) {
+            // Seed sessionStorage on a neutral page first, so the route's guards see the state.
+            await page.goto(`http://127.0.0.1:${port}/agentic-design/#/legal/terms`);
+            await page.evaluate((items) => {
+              sessionStorage.clear();
+              for (const [k, v] of Object.entries(items)) sessionStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v));
+            }, session);
+          }
+          await page.goto(url);
+          if (session) await page.reload();
           await page.waitForLoadState('networkidle');
           await page.evaluate(() => document.fonts.ready);
           await page.screenshot({ path: join(out, `app_${safe(route)}--${brand}-${mode}--${width}.png`), fullPage: true, animations: 'disabled' });

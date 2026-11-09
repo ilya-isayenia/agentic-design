@@ -111,6 +111,10 @@ Then, yourself:
 
 ## 4. Subagents
 
+Start every subagent in the **foreground** (never `run_in_background`) and wait for its result before you write the stage outcome. In print mode (`claude -p`) the process ends with your last turn and background subagents are stopped mid-work. The three reviewers run in parallel as three foreground Task calls in one message.
+
+Routes in `evidence.json` that need signup state carry it (`{ "route": …, "session": { "signup": … } }`, see the template); `pnpm shots --from-record` seeds sessionStorage before each such route.
+
 | Subagent | Writes | Never |
 | --- | --- | --- |
 | spec-writer | `changes/<id>/spec.md` | code |
