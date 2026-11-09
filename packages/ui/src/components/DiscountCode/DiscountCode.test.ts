@@ -65,6 +65,23 @@ describe('DiscountCode', () => {
     wrapper.unmount();
   });
 
+  it('sizes Apply with a hidden loading copy that no one can reach', () => {
+    const wrapper = mountCode();
+    const [apply, copy, ...rest] = wrapper.findAll('button');
+    expect(rest).toHaveLength(0);
+    expect(apply?.attributes('type')).toBe('submit');
+    expect(apply?.attributes('aria-busy')).toBeUndefined();
+    // The copy is always in the loading state, so Apply is as wide idle as applying.
+    expect(copy?.attributes('aria-busy')).toBe('true');
+    expect(copy?.attributes('type')).toBe('button');
+    expect(copy?.attributes('tabindex')).toBe('-1');
+    const hidden = copy?.element.parentElement;
+    expect(hidden?.getAttribute('aria-hidden')).toBe('true');
+    expect(hidden?.hasAttribute('inert')).toBe(true);
+    expect(hidden?.classList).toContain('invisible');
+    wrapper.unmount();
+  });
+
   it('passes the app error to the field and keeps the text', () => {
     const wrapper = mountCode({ modelValue: 'NOPE', error: "We don't recognise this code. Check the spelling and try again." });
     const input = wrapper.get('input');

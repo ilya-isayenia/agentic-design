@@ -54,9 +54,9 @@ defineExpose({ focus: () => input.value?.focus() });
       {{ label }}<span v-if="required" aria-hidden="true"> *</span>
     </label>
     <p v-if="hint" :id="hintId" class="text-small text-text-muted">{{ hint }}</p>
-    <!-- With an action the row wraps: the input keeps at least three fifths of the row, otherwise the action goes under it. -->
+    <!-- With an action the row wraps: the input keeps at least five ninths of the row, otherwise the action goes under it. -->
     <div :class="slots.action && 'flex flex-wrap gap-2'">
-      <div :class="['relative', slots.action && 'grow basis-3/5']">
+      <div :class="['relative', slots.action && 'grow basis-5/9']">
         <input
           :id="inputId"
           ref="input"

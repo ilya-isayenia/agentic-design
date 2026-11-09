@@ -26,7 +26,7 @@ One line of text input with a visible label: names, email, phone, address, IBAN.
 | Slot | Content |
 | --- | --- |
 | `end` | inside the field on the right: a spinner while checking, a check icon when valid. Give icons a `label` if they carry meaning. Not for controls |
-| `action` | one control after the input on the same row, outside its border, e.g. an Apply button. It is not part of the input's name or description. The input takes the remaining width and keeps at least three fifths of the row; with less room the action wraps under the input (SC 1.4.10). The error shows under the whole row |
+| `action` | one control after the input on the same row, outside its border, e.g. an Apply button. It is not part of the input's name or description. The input takes the remaining width and keeps at least five ninths of the row (`basis-5/9`); with less room the action wraps under the input (SC 1.4.10). The error shows under the whole row |
 
 | Event | Payload | When |
 | --- | --- | --- |

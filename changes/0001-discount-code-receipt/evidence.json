@@ -36,7 +36,7 @@
   "states": {
     "loading": {
       "status": "pass",
-      "evidence": "story components-discountcode--applying (aria-busy, focus kept on Apply, second press and Enter emit nothing, field keeps text); unit DiscountCode.test.ts › emits nothing while applying; api.test.ts › answers after 600 ms, can be cancelled; e2e discount-code.spec.ts › a failed check offers a retry (AC 9) (aria-busy during the retry)"
+      "evidence": "story components-discountcode--applying (aria-busy, focus kept on Apply, second press and Enter emit nothing, field keeps text); unit DiscountCode.test.ts › emits nothing while applying; api.test.ts › answers after 600 ms, can be cancelled; e2e discount-code.spec.ts › a failed check offers a retry (AC 9) (aria-busy during the retry); visual tests/visual/app.spec.ts › app step-3-duration-applying pulse-dark 375 (applying held with a paused clock: Apply keeps the size and place it had before the press, on the field's row in the 291 px receipt row); unit DiscountCode.test.ts › sizes Apply with a hidden loading copy that no one can reach"
     },
     "empty": {
       "status": "pass",
@@ -65,6 +65,6 @@
   },
   "responsive": {
     "status": "pass",
-    "evidence": "visual tests/visual/app.spec.ts › step-3-duration-discount, step-4-details-discount, step-5-verify-discount, success-discount (arden-north, Home club, 2 years, TEST-10 applied; success shows First payment €20) in all 6 themes at 375 and 1280; after-shots shots/after/app_* of the same four routes, seeded with that signup from routes in this record, in 6 themes at 375 and 1280; e2e › the field and Apply share a row at 375 px and wrap at 320 px without overflow (AC 19, 21) (no horizontal scroll at either width); story components-discountapplied--narrow and its Matrix row: Remove wraps under the note below 155 px, which the 236 px discount line at 320 px reaches with text at 200 %"
+    "evidence": "visual tests/visual/app.spec.ts › step-3-duration-discount, step-4-details-discount, step-5-verify-discount, success-discount (arden-north, Home club, 2 years, TEST-10 applied; success shows First payment €20) in all 6 themes at 375 and 1280; after-shots shots/after/app_* of the same four routes, seeded with that signup from routes in this record, in 6 themes at 375 and 1280; e2e › the field and Apply share a row at 375 px and wrap at 320 px without overflow (AC 19, 21) (no horizontal scroll at either width); story components-discountapplied--narrow and its Matrix row: Remove wraps under the note below 155 px, which the 236 px discount line at 320 px reaches with text at 200 %; Apply is as wide idle as applying (hidden loading copy), so both wrap at the same width: beside the field in the 291 px receipt row at 375 and the 284 px Matrix column, under it in the 236 px row at 320 (visual app step-3-duration-applying pulse-dark 375; story components-discountcode--matrix)"
   }
 }

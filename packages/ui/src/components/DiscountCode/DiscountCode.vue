@@ -60,7 +60,16 @@ defineExpose({ focus: () => field.value?.focus() });
   <form novalidate @submit.prevent="submit">
     <TextField ref="field" v-model="model" :label="label" :hint="hint" :error="shownError" name="discount-code" autocomplete="off">
       <template #action>
-        <Button type="submit" variant="secondary" :loading="status === 'applying'">Apply</Button>
+        <!-- Apply is as wide while idle as while applying: a hidden loading copy shares its grid cell and sets the
+             width, so the spinner never widens the button or wraps the row when a check starts. -->
+        <div class="grid">
+          <div class="col-start-1 row-start-1 grid">
+            <Button type="submit" variant="secondary" :loading="status === 'applying'">Apply</Button>
+          </div>
+          <div class="invisible col-start-1 row-start-1" aria-hidden="true" inert>
+            <Button variant="secondary" loading tabindex="-1">Apply</Button>
+          </div>
+        </div>
       </template>
     </TextField>
     <p role="status" class="sr-only">{{ live }}</p>

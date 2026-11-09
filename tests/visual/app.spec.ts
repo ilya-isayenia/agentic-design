@@ -63,3 +63,34 @@ for (const theme of [...THEMES.map((t) => ({ ...t, screens: SCREENS })), ...ALL_
     }
   }
 }
+
+// Applying a code at 375 px (change 0001, r2 #9): Apply keeps its width and stays on the field's row in the
+// ~291 px receipt column while the check runs. The page clock is paused and only moved by hand, so the check
+// (3 s with ?mock=slow) never answers and the shot holds the applying state.
+test('app step-3-duration-applying pulse-dark 375', async ({ page }) => {
+  await page.clock.install({ time: NOW });
+  await page.clock.pauseAt(new Date(NOW.getTime() + 1000));
+  await page.setViewportSize({ width: 375, height: 900 });
+  await page.addInitScript((state) => {
+    sessionStorage.setItem('banner', 'shown');
+    sessionStorage.setItem('signup', JSON.stringify(state));
+  }, signup({ access: 'home', duration: 'two-years' }));
+  await page.goto('/agentic-design/?brand=pulse&mode=dark&mock=slow#/join/arden-north/duration');
+  await page.clock.runFor(1000);
+  await expect(page.getByText('First payment')).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const field = page.getByRole('textbox', { name: 'Discount code (optional)' });
+  const apply = page.getByRole('button', { name: 'Apply' });
+  await field.fill('TEST-10');
+  await apply.scrollIntoViewIfNeeded();
+  const idle = await apply.boundingBox();
+  await apply.click();
+  await expect(apply).toHaveAttribute('aria-busy', 'true');
+  const busy = await apply.boundingBox();
+  const input = await field.boundingBox();
+  if (!idle || !busy || !input) throw new Error('the field and Apply are rendered');
+  // Same place and size as before the press, and on the input's row.
+  expect(busy).toEqual(idle);
+  expect(Math.abs(busy.y - input.y)).toBeLessThanOrEqual(1);
+  await expect(page).toHaveScreenshot('app-step-3-duration-applying--pulse-dark--375.png', { fullPage: true });
+});

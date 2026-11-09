@@ -34,9 +34,9 @@ Types: `DiscountCodeStatus`.
 
 | State | Trigger | Feedback | Safe next action |
 | --- | --- | --- | --- |
-| idle | no `error`, `status` idle | label, hint, field, Apply on the same row | type a code, or ignore the field |
+| idle | no `error`, `status` idle | label, hint, field, Apply on the same row; Apply is already as wide as while applying | type a code, or ignore the field |
 | empty submit | Apply or Enter with an empty or blank field | "Enter a code to apply it." under the field with the alert icon, announced politely; no `apply` event | type a code |
-| applying | `status="applying"` | Apply shows its spinner with `aria-busy="true"` and keeps focus; the field keeps its text; a second press does nothing; nothing is announced | wait; editing the field lets the app drop the pending check |
+| applying | `status="applying"` | Apply shows its spinner with `aria-busy="true"` and keeps focus; Apply keeps its size and place, so nothing on the row or below it moves; the field keeps its text; a second press does nothing; nothing is announced | wait; editing the field lets the app drop the pending check |
 | applied | the app empties the field and sets `announcement` | emptied field and Apply, ready for another code; the announcement in the status region; focus stays where it was | continue, or apply another code |
 | invalid | `error` with the unknown-code message | message with the alert icon, `aria-invalid`, described by the message, announced | fix the code and Apply again |
 | expired | `error` with the expired message | as invalid | try another code |
@@ -48,7 +48,7 @@ Types: `DiscountCodeStatus`.
 
 ## Tokens
 
-`danger`, `text`, `text-muted`, `border-strong` through TextField; `font-text`, `text-body`, `text-small`; spacing 1–4; motion `duration-fast`, `ease-standard` only through Button and TextField. Reuses TextField (with the `action` slot), Button (Apply `secondary`, md) and Icon (`alert`, through TextField's error).
+`danger`, `text`, `text-muted`, `border-strong` through TextField; `font-text`, `text-body`, `text-small`; spacing 1–4; motion `duration-fast`, `ease-standard` only through Button and TextField. Reuses TextField (with the `action` slot), Button (Apply `secondary`, md) and Icon (`alert`, through TextField's error). Apply's width comes from a hidden copy of Apply in its loading state in the same grid cell (`invisible`, `aria-hidden`, `inert`), because Button grows by its spinner while loading; no length is set.
 
 ## Accessibility
 
@@ -58,7 +58,8 @@ Types: `DiscountCodeStatus`.
 - One polite `role="status"` region, mounted from the first render and never removed. It carries `announcement`, or this component's own empty-submit message. A repeated empty submit is announced again. The field error itself is not live (TextField's rule), so each result is heard once.
 - No `role="alert"`: the code is optional, so nothing blocks the user.
 - Errors are icon and words with the `danger` border, never colour alone (SC 1.4.1).
-- Apply is md (48 px). At narrow widths Apply wraps under the field instead of overflowing (SC 1.4.10).
+- Apply is md (48 px). At narrow widths Apply wraps under the field instead of overflowing (SC 1.4.10). Idle and applying wrap at the same width, so starting a check never moves Apply or the content below it: in the app's receipt at 375 px (a 291 px row) Apply stays beside the field in both; at 320 px (a 236 px row) it sits under the field in both.
+- The hidden sizing copy of Apply is `invisible`, `aria-hidden` and `inert`: it is not in the tab order or the accessibility tree, so there is one Apply for assistive technology.
 
 ## Do and don't
 
