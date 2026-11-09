@@ -1,0 +1,12 @@
+node_modules/
+dist/
+storybook-static/
+.claude/settings.local.json
+packages/tokens/build/
+test-results/
+playwright-report/
+coverage/
+*.log
+.DS_Store
+.vite/
+tests/visual/.output/
