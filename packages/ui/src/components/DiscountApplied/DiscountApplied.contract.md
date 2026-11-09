@@ -26,7 +26,7 @@ No v-model, nothing exposed.
 | State | Trigger | Feedback | Safe next action |
 | --- | --- | --- | --- |
 | applied | rendered with `code` and `summary` | check icon, "{code} applied" in `success`, the summary in `text-muted`, Remove at the right | continue, or Remove |
-| narrow | the line is too narrow for the note and Remove | the note wraps; Remove goes under it | as applied |
+| narrow | the line is narrower than about 155 px; in the receipt at 320 px (236 px line) that happens with text enlarged to 200 % | the note wraps; Remove goes under it, nothing overflows | as applied |
 | focus | keyboard focus on Remove | global 2 px `focus` ring | Enter or Space |
 
 Removed is the app's state, not this component's: on `remove` the app takes the line away, moves focus to the discount code field and announces the new total through DiscountCode's status region.
