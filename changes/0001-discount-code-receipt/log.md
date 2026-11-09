@@ -26,3 +26,5 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 spec: start (round 3, fold in variant B and the TextField slot)
 - 2026-11-09 spec: variant B and TextField action slot folded in — new DiscountApplied in a ReceiptLine `below` slot, line label "Discount" (assumption), TextField/** and DiscountApplied/** in scope; no questions
 - 2026-11-09 refine: start (from explorations-0001-discount-code-receipt-b--matrix)
+- 2026-11-09 refine: built (d0655a1, baselines 18c4e6d), pnpm check green per refiner; 2 questions
+- 2026-11-09 waiting (refine): Q1 Apply wraps under the field at 375 px while loading (Button grows 87→111 px) — (a) keep basis-3/5, (b) basis-7/12 and drop "wraps at 320 px" from criterion 21, (c) widen scope to Button/** so loading keeps its width; Q2 confirm: Remove during a kept error keeps the error but drops "{applied} is still in your total."
