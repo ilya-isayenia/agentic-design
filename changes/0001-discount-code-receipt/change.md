@@ -7,10 +7,10 @@
 | request | add a discount code field to the receipt |
 | type | feature |
 | size | L |
-| status | waiting |
-| stage | spec |
-| waiting for | answers to 5 spec questions, then spec approval (size L) |
+| status | in progress |
+| stage | prototype |
+| waiting for | — |
 | branch | change/0001-discount-code-receipt |
-| prototype rounds | 0 |
+| prototype rounds | 1 |
 | review rounds | 0 |
 | pr | — |
