@@ -10,3 +10,6 @@ coverage/
 .DS_Store
 .vite/
 tests/visual/.output/
+changes/review/
+changes/**/.review/
+.check/

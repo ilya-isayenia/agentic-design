@@ -1,0 +1,16 @@
+{
+  "contract": "One sentence: what the change delivers and to whom.",
+  "viewports": ["375", "1280"],
+  "stories": ["components-name--matrix", "components-name--error"],
+  "routes": ["/#/join/arden-north/details"],
+  "states": {
+    "loading": { "status": "pass", "evidence": "story components-name--loading; unit test name.test.ts › shows spinner" },
+    "empty": { "status": "pass", "evidence": "…" },
+    "error": { "status": "pass", "evidence": "…" },
+    "partial": { "status": "not-applicable", "reason": "the component shows one value, nothing can be partly loaded" },
+    "success": { "status": "pass", "evidence": "…" },
+    "permission": { "status": "not-applicable", "reason": "no access rules in this app" }
+  },
+  "accessibility": { "status": "pass", "evidence": "axe clean on all stories and Matrix; keyboard path: …; announcements: …" },
+  "responsive": { "status": "pass", "evidence": "375 and 1280 shots in after/" }
+}

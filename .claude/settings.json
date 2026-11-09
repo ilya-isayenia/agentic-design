@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm *)",
+      "Bash(node tools/*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git switch*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git mv*)",
+      "Bash(git push -u origin*)",
+      "Bash(gh pr create*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr view*)"
+    ]
+  }
+}
