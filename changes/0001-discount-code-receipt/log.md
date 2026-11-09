@@ -40,3 +40,5 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 validate: start (fix round 1, resumed)
 - 2026-11-09 validate: fix round 1 done — #1 evidence routes seed the signup and after-shots re-taken (e790a16), #2 Receipt aside text colour (e5cca4a); #3 and the #1 baselines were already in 1e6387c, 16d8d69, f81c389; pnpm check green per refiner; 1 question on spec scope
 - 2026-11-09 decision (validate): Receipt.vue joins the spec's paths to touch — required finding r1 #2 names that file, and the fix is one class by: agent
+- 2026-11-09 spec: Receipt.vue added to paths to touch (round 5); no questions
+- 2026-11-09 validate: start (round 2)

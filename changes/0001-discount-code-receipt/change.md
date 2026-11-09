@@ -12,5 +12,5 @@
 | waiting for | — |
 | branch | change/0001-discount-code-receipt |
 | prototype rounds | 1 |
-| review rounds | 1 |
+| review rounds | 2 |
 | pr | — |

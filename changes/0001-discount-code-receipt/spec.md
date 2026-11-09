@@ -257,6 +257,7 @@ packages/ui/src/components/DiscountCode/**
 packages/ui/src/components/DiscountApplied/**
 packages/ui/src/components/TextField/**
 packages/ui/src/components/ReceiptLine/**
+packages/ui/src/components/Receipt/Receipt.vue
 packages/ui/src/components/Receipt/Receipt.contract.md
 packages/ui/src/components/Receipt/Receipt.stories.ts
 packages/ui/src/index.ts
