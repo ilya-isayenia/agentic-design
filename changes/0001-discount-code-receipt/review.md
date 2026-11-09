@@ -40,3 +40,11 @@ Design score: 8.1/10.
 - `pnpm check` green after the fix (refiner).
 
 Notes: round 1 #1, #2 and #3 confirmed fixed (design-reviewer opened 8 route shots and the light single-story receipt shots; code-reviewer checked the Narrow story and Matrix row against the contract). Code reviewer: no findings. The a11y auditor found no critical or required issue. Criterion 11's second e2e (Remove after a rejected code) is still for integrate.
+
+## Round 3
+
+No findings at confidence ≥ 80 from any reviewer.
+
+Design score: 8.2/10.
+
+Notes: #9 confirmed fixed — in the 1280 Matrix (six themes) and app step 3 at 375 Apply is ~111 px idle and applying and stays on the field's row. The design reviewer judges the wider idle Apply acceptable (a fixed-width inline action; TEST-EXPIRED fits the narrower input); it differs from TextField's content-sized WithAction example until the Button follow-up. The a11y auditor confirmed the hidden copy is out of the tree and tab order, with no duplicate name, id or busy state, the wrap at 320 px and 200 % text, and forced colours. The code reviewer confirmed `basis-5/9` needs no arbitrary value, the applying visual case is deterministic and no check was weakened. Optional findings #4–#8, #10, #11 stay open.

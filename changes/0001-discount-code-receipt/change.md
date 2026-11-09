@@ -8,7 +8,7 @@
 | type | feature |
 | size | L |
 | status | active |
-| stage | validate |
+| stage | integrate |
 | waiting for | — |
 | branch | change/0001-discount-code-receipt |
 | prototype rounds | 1 |

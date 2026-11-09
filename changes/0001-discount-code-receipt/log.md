@@ -47,3 +47,5 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 validate: start (fix round 2)
 - 2026-11-09 validate: fix round 2 done — #9 Apply keeps its loading width via a hidden loading copy, input basis-5/9, new visual case of applying at 375 (122d4cd, baselines 82ff865); pnpm check green per refiner
 - 2026-11-09 validate: start (round 3, re-review after fix round 2)
+- 2026-11-09 validate: round 3 — no findings; #9 confirmed fixed; design 8.2/10; 7 optional open
+- 2026-11-09 integrate: start
