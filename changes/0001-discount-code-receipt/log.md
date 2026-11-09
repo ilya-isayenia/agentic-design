@@ -16,3 +16,5 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 spec: answers folded in — replace-on-new-code, kept-on-rejected-code (assumption), referral independent; no questions
 - 2026-11-09 decision (spec): spec accepted with the five answers — acceptance given together with the answers by: agent
 - 2026-11-09 prototype: start (round 1)
+- 2026-11-09 prototype: round 1 — 3 variants (A applied row in footer; B applied state on the discount line; C field inside the receipt above the total); light-mode text race fixed in explorations; shots in shots/round-1/
+- 2026-11-09 waiting (prototype): variant choice for round 1; questions: TextField row slot vs own field markup; C needs a Receipt.vue slot and "Applied:" copy; Storybook light-mode colour race in production stories as a separate change

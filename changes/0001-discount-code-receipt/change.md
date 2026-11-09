@@ -7,9 +7,9 @@
 | request | add a discount code field to the receipt |
 | type | feature |
 | size | L |
-| status | in progress |
+| status | waiting |
 | stage | prototype |
-| waiting for | — |
+| waiting for | prototype round 1 choice and 3 prototyper questions |
 | branch | change/0001-discount-code-receipt |
 | prototype rounds | 1 |
 | review rounds | 0 |
