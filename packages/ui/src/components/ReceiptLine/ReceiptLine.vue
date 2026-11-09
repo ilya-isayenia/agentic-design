@@ -45,7 +45,7 @@ const total = computed(() => props.emphasis === 'total');
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 py-3">
+  <div class="flex flex-col gap-2 py-3 text-text">
     <div class="flex items-baseline justify-between gap-4">
       <button
         v-if="slots.default"

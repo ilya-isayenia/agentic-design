@@ -38,7 +38,7 @@ No events: the disclosure state is local.
 
 ## Tokens
 
-`text`, `text-muted`; `font-display`, `text-h2`, `text-h3`, `text-small`, `text-caption`, `font-semibold`, `font-extrabold`; `tabular`; spacing 1–4; `rounded-sm`; motion `duration-fast`, `ease-standard`.
+`text`, `text-muted`; `font-display`, `text-h2`, `text-h3`, `text-small`, `text-caption`, `font-semibold`, `font-extrabold`; `tabular`; spacing 1–4; `rounded-sm`; motion `duration-fast`, `ease-standard`. The root sets `text` itself rather than inheriting it, so the line reads right in any theme container.
 
 ## Accessibility
 
