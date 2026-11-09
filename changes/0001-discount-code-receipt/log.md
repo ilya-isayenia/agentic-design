@@ -45,3 +45,5 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 validate: round 2 — 1 required (Apply wraps under the field while applying, #9), 2 optional; round 1 fixes confirmed; code review clean; design 8.1/10
 - 2026-11-09 decision (validate): send #9 to fix round 2 although refine Q1 (a) accepted the wrap — that answer was an agent's, made when the in-scope options were a spec edit or a Button change; the reviewer rates the jump of the pressed control as required, and the process gives required findings to the refiner; if no fix keeps criterion 21 without touching Button, the refiner returns blocked and the question goes to the human by: agent
 - 2026-11-09 validate: start (fix round 2)
+- 2026-11-09 validate: fix round 2 done — #9 Apply keeps its loading width via a hidden loading copy, input basis-5/9, new visual case of applying at 375 (122d4cd, baselines 82ff865); pnpm check green per refiner
+- 2026-11-09 validate: start (round 3, re-review after fix round 2)
