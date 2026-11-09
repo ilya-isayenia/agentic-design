@@ -36,3 +36,7 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 refine: after-shots taken (274 in shots/after/)
 - 2026-11-09 validate: start (round 1)
 - 2026-11-09 validate: round 1 — 3 required (route shots without state, light-mode receipt text, DiscountApplied narrow story), 5 optional; design 7.2/10
+- 2026-11-09 decision (validate): resume fix round 1 instead of rerunning validate — the fix subagent stopped mid-work when the print-mode session ended (48c541f, 1e6387c, 16d8d69, baselines f81c389 are on the branch); main is merged with shots seeding sessionStorage, so the refiner puts the signup session into evidence.json routes and re-takes after-shots by: agent
+- 2026-11-09 validate: start (fix round 1, resumed)
+- 2026-11-09 validate: fix round 1 done — #1 evidence routes seed the signup and after-shots re-taken (e790a16), #2 Receipt aside text colour (e5cca4a); #3 and the #1 baselines were already in 1e6387c, 16d8d69, f81c389; pnpm check green per refiner; 1 question on spec scope
+- 2026-11-09 decision (validate): Receipt.vue joins the spec's paths to touch — required finding r1 #2 names that file, and the fix is one class by: agent
