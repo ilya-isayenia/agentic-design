@@ -9,6 +9,8 @@
 //   --viewports 375,1280  widths in CSS px (default 375,1280)
 //   --before              build Storybook and the app at the merge base with main, label "before"
 //   --no-build            reuse storybook-static/ and apps/web/dist/
+// Matrix stories (ids ending in --matrix) already render all six themes, so they are shot once per
+// width as <id>--all-themes--<width>.png.
 import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -94,17 +96,20 @@ try {
     for (const brand of brands) {
       for (const mode of modes) {
         for (const story of stories) {
+          const matrix = story.endsWith('--matrix');
+          if (matrix && (brand !== brands[0] || mode !== modes[0])) continue;
           await page.goto(`http://127.0.0.1:${port}/storybook/iframe.html?id=${story}&viewMode=story&globals=brand:${brand};mode:${mode}`);
           await page.locator('#storybook-root > *').first().waitFor({ timeout: 15_000 });
           await page.evaluate(() => document.fonts.ready);
-          await page.screenshot({ path: join(out, `${safe(story)}--${brand}-${mode}--${width}.png`), fullPage: true });
+          const theme = matrix ? 'all-themes' : `${brand}-${mode}`;
+          await page.screenshot({ path: join(out, `${safe(story)}--${theme}--${width}.png`), fullPage: true, animations: 'disabled' });
           count++;
         }
         for (const route of routes) {
           await page.goto(`http://127.0.0.1:${port}/agentic-design/?brand=${brand}&mode=${mode}#${route}`);
           await page.waitForLoadState('networkidle');
           await page.evaluate(() => document.fonts.ready);
-          await page.screenshot({ path: join(out, `app_${safe(route)}--${brand}-${mode}--${width}.png`), fullPage: true });
+          await page.screenshot({ path: join(out, `app_${safe(route)}--${brand}-${mode}--${width}.png`), fullPage: true, animations: 'disabled' });
           count++;
         }
       }

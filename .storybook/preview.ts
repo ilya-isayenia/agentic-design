@@ -23,8 +23,12 @@ const preview: Preview = {
     },
   ],
   loaders: [
-    // Fonts are self-hosted; wait for them so screenshots and tests never see a fallback font.
-    async () => {
+    // Set the theme before the first render (the decorator alone sets it during render, so the first
+    // paint can be in the previous theme), then wait for the self-hosted fonts, so screenshots and
+    // tests never see a fallback theme or font.
+    async ({ globals }) => {
+      document.documentElement.dataset.brand = globals.brand ?? 'pulse';
+      document.documentElement.dataset.mode = globals.mode ?? 'dark';
       await Promise.all(
         ['400 1em Inter', '600 1em Inter', '800 1em "Barlow Condensed"', '600 1em "Barlow Condensed"'].map((f) => document.fonts.load(f)),
       );

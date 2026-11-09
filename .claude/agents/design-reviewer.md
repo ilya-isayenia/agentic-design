@@ -13,7 +13,7 @@ You review with a fresh context. You never see the refiner's reasoning and you d
 
 ## Input
 
-- From `/change`: the change folder `changes/<id>/`, the spec path, `changes/<id>/.review/diff.patch` and `files.txt`, `checks.json` if present, the shots folder `changes/<id>/shots/` (`after/`, `before/` for edits, `round-N/` for prototypes). Shot names: `<story id or app_route>--<brand>-<mode>--<width>.png`.
+- From `/change`: the change folder `changes/<id>/`, the spec path, `changes/<id>/.review/diff.patch` and `files.txt`, `checks.json` if present, the shots folder `changes/<id>/shots/` (`after/`, `before/` for edits, `round-N/` for prototypes). Shot names: `<story id or app_route>--<brand>-<mode>--<width>.png`; Matrix stories are shot once as `<story id>--all-themes--<width>.png`.
 - From `/review`: the target, its files or diff, a shots folder. No spec exists; judge against the component's `*.contract.md` or the screen's row in `docs/spec.md` §4.
 - `review.md` from earlier rounds, if present: check that earlier findings are gone. Do not raise again what the human deferred or rejected.
 
