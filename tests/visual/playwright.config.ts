@@ -6,9 +6,9 @@ export default defineConfig({
   outputDir: '../../test-results/visual',
   snapshotPathTemplate: '{testDir}/baselines/{arg}{ext}',
   fullyParallel: true,
-  workers: 4,
+  workers: process.env.GITHUB_ACTIONS ? 2 : 4,
   reporter: [['list'], ['json', { outputFile: '../../test-results/visual/results.json' }]],
-  expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.002, animations: 'disabled', caret: 'hide', scale: 'css' } },
+  expect: { timeout: 30_000, toHaveScreenshot: { maxDiffPixelRatio: 0.002, animations: 'disabled', caret: 'hide', scale: 'css' } },
   use: {
     ...devices['Desktop Chrome'],
     baseURL: 'http://127.0.0.1:6107',

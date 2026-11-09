@@ -26,7 +26,10 @@ if (!process.argv.includes('--no-build')) {
 run('docker', [
   'run', '--rm', '--ipc=host', '--init',
   '-v', `${process.cwd()}:/work`, '-w', '/work',
+  // Run as the host user, so files the tests write (results, baselines) are not owned by root.
+  ...(process.getuid ? ['--user', `${process.getuid()}:${process.getgid?.()}`, '-e', 'HOME=/tmp'] : []),
   '-e', 'CI=1',
+  ...(process.env.GITHUB_ACTIONS ? ['-e', 'GITHUB_ACTIONS=true'] : []),
   image,
   'node', 'node_modules/@playwright/test/cli.js', 'test', '-c', 'tests/visual/playwright.config.ts',
   ...(update ? ['--update-snapshots'] : []),
