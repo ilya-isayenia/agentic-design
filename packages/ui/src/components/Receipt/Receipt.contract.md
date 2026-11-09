@@ -16,7 +16,7 @@ The order summary beside the signup steps: which club, what each part costs, and
 | --- | --- |
 | default | `ReceiptLine` items; dashed `border` dividers are drawn between them |
 | `total` | one `ReceiptLine` with `emphasis="total"`, under a dashed `border-strong` rule |
-| `footer` | extra content under the receipt, e.g. the referral code `TextField`; shown in every state |
+| `footer` | extra content under the receipt, e.g. the DiscountCode field and the referral code `TextField`; shown in every state |
 
 No events.
 
@@ -27,6 +27,7 @@ No events.
 | empty | no club, no lines (or `empty`) | dumbbell icon and "Choose a club and a plan to see your price here." | pick a club in the finder |
 | club only | `club`, no lines | club name and address, then "Choose a plan to see your price." | choose a plan in the step |
 | filled | lines (and usually `club` and `total`) | lines with dashed dividers, total at the bottom | continue the steps |
+| with discount | a discount ReceiptLine (negative amount, DiscountApplied in `below`) after the plan and starter lines; DiscountCode in `footer` | "Discount" line with the deduction, "{code} applied", the summary and Remove, above the total; the field and Apply in the footer | continue, Remove, or apply another code |
 
 ## Tokens
 
@@ -35,7 +36,7 @@ No events.
 ## Accessibility
 
 - `<aside aria-labelledby>` pointing at its own `h2` (id from `useId`), so it is a named complementary landmark. In the app, place it beside `<main>`, not inside it: a complementary landmark belongs at the top level (axe `landmark-complementary-is-top-level`).
-- No live region for the total, by decision: the total only changes in reply to a choice the user just made in the step, and that choice is already announced there. A live region would read every price twice.
+- No live region for the total, by decision: the total only changes in reply to a choice the user just made in the step, and that choice is already announced there. A live region would read every price twice. A discount code's new total is announced by DiscountCode's own status region, also after a Remove on the discount line, so it is not read twice either.
 - Prices are read through each ReceiptLine's `sr-only` text ("€22, was €44").
 - The pin and dumbbell icons are decorative (`aria-hidden`).
 - The club name is a paragraph, not a heading: the receipt is one short section under its `h2`.
@@ -43,6 +44,6 @@ No events.
 ## Do and don't
 
 - Do pass ReceiptLine items only in the default slot, so the dividers fall between lines.
-- Do leave the discount code out: it is added later as a separate change, in `footer` or a new slot.
+- Do put the discount code field (DiscountCode) in `footer`, above the referral field. Its line goes in the default slot after the plan and starter lines, with DiscountApplied in the line's `below` slot.
 - Don't make the receipt sticky here; the app positions it.
 - Don't add a live region for the total.
