@@ -13,4 +13,4 @@
 | branch | change/0001-discount-code-receipt |
 | prototype rounds | 1 |
 | review rounds | 3 |
-| pr | — |
+| pr | https://github.com/ilya-isayenia/agentic-design/pull/1 |
