@@ -1,0 +1,16 @@
+{
+  "name": "@agentic/ui",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/index.css"
+  },
+  "dependencies": {
+    "@agentic/tokens": "workspace:*",
+    "@fontsource/barlow-condensed": "5.3.0",
+    "@fontsource/inter": "5.3.0",
+    "vue": "3.5.45"
+  }
+}

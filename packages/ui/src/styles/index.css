@@ -1,0 +1,156 @@
+/* Design-system stylesheet: fonts, token variables, and the Tailwind theme mapped onto them.
+   The default Tailwind theme is reset, so only the classes below exist. */
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/800.css';
+@import '@fontsource/barlow-condensed/400.css';
+@import '@fontsource/barlow-condensed/600.css';
+@import '@fontsource/barlow-condensed/800.css';
+@import '@agentic/tokens/tokens.css';
+@import 'tailwindcss';
+
+@source '../../';
+@source '../../../../apps/web/src';
+
+@custom-variant dark (&:where([data-mode='dark'], [data-mode='dark'] *));
+
+@theme {
+  --*: initial;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --container-prose: 70ch;
+  --container-receipt: 24rem;
+  --container-page: 80rem;
+}
+
+@theme inline {
+  --color-bg: var(--ds-color-bg);
+  --color-surface: var(--ds-color-surface);
+  --color-surface-raised: var(--ds-color-surface-raised);
+  --color-text: var(--ds-color-text);
+  --color-text-muted: var(--ds-color-text-muted);
+  --color-border: var(--ds-color-border);
+  --color-border-strong: var(--ds-color-border-strong);
+  --color-accent: var(--ds-color-accent);
+  --color-accent-hover: var(--ds-color-accent-hover);
+  --color-on-accent: var(--ds-color-on-accent);
+  --color-success: var(--ds-color-success);
+  --color-danger: var(--ds-color-danger);
+  --color-focus: var(--ds-color-focus);
+  --color-chart-1: var(--ds-color-chart-1);
+  --color-chart-2: var(--ds-color-chart-2);
+  --color-chart-3: var(--ds-color-chart-3);
+  --color-chart-4: var(--ds-color-chart-4);
+  --color-chart-5: var(--ds-color-chart-5);
+  --color-chart-grid: var(--ds-color-chart-grid);
+  --color-chart-label: var(--ds-color-chart-label);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: var(--ds-font-family-display);
+  --font-text: var(--ds-font-family-text);
+  --font-weight-regular: var(--ds-font-weight-regular);
+  --font-weight-semibold: var(--ds-font-weight-semibold);
+  --font-weight-extrabold: var(--ds-font-weight-extrabold);
+
+  --text-display: var(--ds-font-size-display);
+  --text-display--line-height: var(--ds-font-line-height-display);
+  --text-h1: var(--ds-font-size-h1);
+  --text-h1--line-height: var(--ds-font-line-height-h1);
+  --text-h2: var(--ds-font-size-h2);
+  --text-h2--line-height: var(--ds-font-line-height-h2);
+  --text-h3: var(--ds-font-size-h3);
+  --text-h3--line-height: var(--ds-font-line-height-h3);
+  --text-body: var(--ds-font-size-body);
+  --text-body--line-height: var(--ds-font-line-height-body);
+  --text-small: var(--ds-font-size-small);
+  --text-small--line-height: var(--ds-font-line-height-small);
+  --text-caption: var(--ds-font-size-caption);
+  --text-caption--line-height: var(--ds-font-line-height-caption);
+
+  --spacing-0: var(--ds-space-0);
+  --spacing-1: var(--ds-space-1);
+  --spacing-2: var(--ds-space-2);
+  --spacing-3: var(--ds-space-3);
+  --spacing-4: var(--ds-space-4);
+  --spacing-6: var(--ds-space-6);
+  --spacing-8: var(--ds-space-8);
+  --spacing-12: var(--ds-space-12);
+  --spacing-16: var(--ds-space-16);
+
+  --radius-none: var(--ds-radius-none);
+  --radius-sm: var(--ds-radius-sm);
+  --radius-md: var(--ds-radius-md);
+  --radius-full: var(--ds-radius-full);
+
+  --animate-spin: spin 0.8s linear infinite;
+  --animate-ticker: ticker 24s linear infinite;
+  --animate-pulse: pulse 1.6s var(--ds-motion-easing-standard) infinite;
+
+  --ease-standard: var(--ds-motion-easing-standard);
+  --ease-emphasized: var(--ds-motion-easing-emphasized);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@utility duration-fast {
+  transition-duration: var(--ds-motion-duration-fast);
+}
+@utility duration-base {
+  transition-duration: var(--ds-motion-duration-base);
+}
+@utility duration-slow {
+  transition-duration: var(--ds-motion-duration-slow);
+}
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+@utility focus-ring {
+  outline: 2px solid var(--ds-color-focus);
+  outline-offset: 2px;
+}
+
+@layer base {
+  html {
+    background-color: var(--ds-color-bg);
+    color: var(--ds-color-text);
+    font-family: var(--ds-font-family-text);
+    font-size: 100%;
+    line-height: var(--ds-font-line-height-body);
+    -webkit-font-smoothing: antialiased;
+    color-scheme: dark;
+  }
+  [data-mode='light'] {
+    color-scheme: light;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ds-color-focus);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

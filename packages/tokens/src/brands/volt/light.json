@@ -1,0 +1,65 @@
+{
+  "color": {
+    "$type": "color",
+    "bg": {
+      "$value": "{palette.neutral.50}"
+    },
+    "surface": {
+      "$value": "{palette.neutral.0}"
+    },
+    "surface-raised": {
+      "$value": "{palette.neutral.100}"
+    },
+    "text": {
+      "$value": "{palette.neutral.900}"
+    },
+    "text-muted": {
+      "$value": "{palette.neutral.600}"
+    },
+    "border": {
+      "$value": "{palette.neutral.200}"
+    },
+    "border-strong": {
+      "$value": "{palette.neutral.500}"
+    },
+    "accent": {
+      "$value": "{palette.yellow.600}"
+    },
+    "accent-hover": {
+      "$value": "{palette.yellow.500}"
+    },
+    "on-accent": {
+      "$value": "{palette.neutral.1000}"
+    },
+    "success": {
+      "$value": "{palette.green.700}"
+    },
+    "danger": {
+      "$value": "{palette.red.600}"
+    },
+    "focus": {
+      "$value": "{palette.neutral.900}"
+    },
+    "chart-1": {
+      "$value": "{palette.yellow.700}"
+    },
+    "chart-2": {
+      "$value": "{palette.blue.600}"
+    },
+    "chart-3": {
+      "$value": "{palette.teal.600}"
+    },
+    "chart-4": {
+      "$value": "{palette.violet.600}"
+    },
+    "chart-5": {
+      "$value": "{palette.orange.600}"
+    },
+    "chart-grid": {
+      "$value": "{palette.neutral.200}"
+    },
+    "chart-label": {
+      "$value": "{palette.neutral.600}"
+    }
+  }
+}

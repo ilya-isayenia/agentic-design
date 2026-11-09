@@ -1,0 +1,12 @@
+{
+  "name": "@agentic/tokens",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./build/tokens.css",
+    "./themes.json": "./build/themes.json"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  }
+}
