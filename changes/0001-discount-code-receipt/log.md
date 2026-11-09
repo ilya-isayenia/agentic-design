@@ -42,3 +42,6 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-09 decision (validate): Receipt.vue joins the spec's paths to touch — required finding r1 #2 names that file, and the fix is one class by: agent
 - 2026-11-09 spec: Receipt.vue added to paths to touch (round 5); no questions
 - 2026-11-09 validate: start (round 2)
+- 2026-11-09 validate: round 2 — 1 required (Apply wraps under the field while applying, #9), 2 optional; round 1 fixes confirmed; code review clean; design 8.1/10
+- 2026-11-09 decision (validate): send #9 to fix round 2 although refine Q1 (a) accepted the wrap — that answer was an agent's, made when the in-scope options were a spec edit or a Button change; the reviewer rates the jump of the pressed control as required, and the process gives required findings to the refiner; if no fix keeps criterion 21 without touching Button, the refiner returns blocked and the question goes to the human by: agent
+- 2026-11-09 validate: start (fix round 2)

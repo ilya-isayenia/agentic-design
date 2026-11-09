@@ -23,3 +23,15 @@ Design score: 7.2/10.
 - `pnpm check` green after the fixes (refiner).
 
 Notes: the a11y auditor found no critical or required issue; keyboard path and focus after Remove checked. The e2e for criterion 11 (Remove after a rejected code) is written at integrate.
+
+## Round 2
+
+| # | Reviewer | Severity | Confidence | Where | Finding | Fix | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 9 | design-reviewer | required | 85 | `components-discountcode--matrix` (applying cell, all six themes); `packages/ui/src/components/TextField/TextField.vue:59` | While applying, Apply widens (~85 → ~110 px with the spinner) and drops under the field in a ~283 px column; the pressed control and the referral field below move ~56 px. The app receipt row at 375 px is ~291 px, so the same jump is likely on phones (inferred; no app shot of the applying state). Refine Q1 (a) accepted this wrap; the reviewer rates it required against spec behaviour 2 and the loading row ("only the button changes") | keep Apply's width while it loads inside DiscountCode or TextField without changing Button for everyone (reviewer suggests `basis-1/2`); re-shoot the DiscountCode Matrix; add an applying shot or visual case at 375 | open |
+| 10 | design-reviewer | optional | 85 | `components-discountapplied--narrow`, `packages/ui/src/components/DiscountApplied/DiscountApplied.vue:20` | When Remove wraps under the note, its label starts ~26 px right of the note's left edge (ghost padding; same cause as #4, now on the left) | with #4, cancel the ghost padding on both sides with a negative horizontal margin from the spacing scale | open |
+| 11 | a11y-auditor | optional | 80 | `packages/ui/src/components/DiscountCode/DiscountCode.vue:44-48` | A second empty submit in a row is probably not announced: `live` is cleared and refilled within one task, so the browser sees no change. SC 4.1.3 is still met (message stays in the status region and the field's description) | refill after a real task gap (`setTimeout`, cleared on unmount), or drop the repeat-announcement comment | open |
+
+Design score: 8.1/10.
+
+Notes: round 1 #1, #2 and #3 confirmed fixed (design-reviewer opened 8 route shots and the light single-story receipt shots; code-reviewer checked the Narrow story and Matrix row against the contract). Code reviewer: no findings. The a11y auditor found no critical or required issue. Criterion 11's second e2e (Remove after a rejected code) is still for integrate.
