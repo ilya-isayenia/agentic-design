@@ -129,6 +129,27 @@ test('removing the code restores the total (AC 11)', async ({ page }) => {
   await expect(r.status).toHaveText('Code removed. Your first payment is now €22.');
 });
 
+test('removing the code after a rejected one drops the kept sentence (AC 11)', async ({ page }) => {
+  const r = await openDuration(page);
+  const message = "We don't recognise this code. Check the spelling and try again.";
+  await applyCode(r, 'TEST-10');
+  await expect(r.total('€20, was €69')).toBeAttached();
+  await applyCode(r, 'NOPE');
+  await expect(r.fieldError).toHaveText(`Error: ${message} TEST-10 is still in your total.`);
+
+  await r.aside.getByRole('button', { name: 'Remove code TEST-10' }).click();
+  await expect(r.discountLine).toHaveCount(0);
+  await expect(r.total('€22, was €69')).toBeAttached();
+  // The rejection stays under the field, without the sentence that is no longer true.
+  await expect(r.fieldError).toHaveText(`Error: ${message}`);
+  await expect(r.fieldError).toBeVisible();
+  await expect(r.aside).not.toContainText('TEST-10 is still in your total.');
+  await expect(r.field).toHaveAttribute('aria-invalid', 'true');
+  await expect(r.field).toHaveValue('NOPE');
+  await expect(r.field).toBeFocused();
+  await expect(r.status).toHaveText('Code removed. Your first payment is now €22.');
+});
+
 test('a new code replaces the applied one (AC 12)', async ({ page }) => {
   const r = await openDuration(page, { duration: 'flex' });
   await applyCode(r, 'TEST-10');
