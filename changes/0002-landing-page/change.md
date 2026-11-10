@@ -9,8 +9,8 @@
 | type | feature |
 | size | XL |
 | status | waiting |
-| stage | product spec |
-| waiting for | product spec approval and question 1 (link-styled Button) |
+| stage | plan |
+| waiting for | plan approval |
 | branch | change/0002-landing-page |
 | prototype rounds | 0 |
 | review rounds | 0 |

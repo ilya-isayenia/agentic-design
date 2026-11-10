@@ -111,3 +111,5 @@ Existing brand `pulse`, both modes. Dark is the default, as in the signup app.
    - (a) a `ds` child before the hero adds an `href` prop to `Button` that renders `<a href>` with the same variants, sizes and focus ring, plus its contract, stories and tests (my pick);
    - (b) the landing styles a plain `<a>` with token classes copied from `Button`, which gives a second copy of the button look that will drift (rule P2);
    - (c) `Button` with a click handler that sets `location`, which gives the wrong role (announced as a button) and breaks open-in-new-tab.
+
+   Decided 2026-11-10: (a), a `ds` child before the hero (log.md, by: agent).
