@@ -254,6 +254,15 @@ importers:
         specifier: 3.3.14
         version: 3.3.14(typescript@6.0.3)
 
+  apps/landing:
+    dependencies:
+      '@agentic/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      vue:
+        specifier: 3.5.45
+        version: 3.5.45(typescript@6.0.3)
+
   apps/web:
     dependencies:
       '@agentic/ui':

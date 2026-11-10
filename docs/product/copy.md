@@ -32,4 +32,6 @@ Voice: short, direct, second person; verbs on buttons; no exclamation marks; num
 | Discount announcements | "{code} applied. Your first payment is now {total}." / "{code} applied instead of {applied}. Your first payment is now {total}." / "Code removed. Your first payment is now {total}." |
 | Success | "You're in" ; next steps: bring ID, collect the member card, book the intro session |
 
+The landing page (`apps/landing`) keeps its copy in `apps/landing/src/content/` as typed constants, in the same voice.
+
 `{code}` is the code normalised to capitals; `{durations}` is built from the duration titles the code covers ("Flex", "2-year and 1-year"). Field labels, hints and error messages live next to the code (`apps/web/src/lib/details.ts`, `apps/web/src/lib/discount.ts`) and follow the same voice: say what to do, not what went wrong ("Enter your postcode", not "Postcode invalid").
