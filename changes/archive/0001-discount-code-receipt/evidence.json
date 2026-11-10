@@ -1,0 +1,70 @@
+{
+  "contract": "Members who have chosen a plan can apply one discount code in the receipt, see its deduction, note and Remove on a \"Discount\" line above a lower first payment, and carry that payment to the success page.",
+  "viewports": ["375", "1280"],
+  "stories": [
+    "components-discountcode--idle",
+    "components-discountcode--empty-submit",
+    "components-discountcode--applying",
+    "components-discountcode--applied",
+    "components-discountcode--invalid",
+    "components-discountcode--expired",
+    "components-discountcode--not-eligible",
+    "components-discountcode--no-longer-applies",
+    "components-discountcode--network-error",
+    "components-discountcode--kept-on-error",
+    "components-discountcode--keyboard",
+    "components-discountcode--matrix",
+    "components-discountapplied--default",
+    "components-discountapplied--narrow",
+    "components-discountapplied--matrix",
+    "components-textfield--with-action",
+    "components-textfield--with-action-invalid",
+    "components-textfield--matrix",
+    "components-receiptline--deduction",
+    "components-receiptline--matrix",
+    "components-receipt--with-discount",
+    "components-receipt--empty",
+    "components-receipt--club-only",
+    "components-receipt--matrix"
+  ],
+  "routes": [
+    {"route": "/#/join/arden-north/duration", "session": {"signup": {"clubId": "arden-north", "type": "regular", "workouts": 3, "access": "home", "duration": "two-years", "details": {"firstName": "Test", "lastName": "Person", "birthDate": "1990-05-01", "email": "test.person@example.com", "phoneCountry": "+31", "phone": "600000000", "street": "Sample Street", "houseNumber": "1", "postcode": "0000 AA", "city": "Arden", "country": "demoland", "iban": "NL13 TEST 0123 4567 89", "bic": "TESTNL2A", "bankName": "Test Bank (fake)", "consent": true}, "detailsSubmitted": true, "referral": "", "discountCode": "TEST-10", "verified": false}}},
+    {"route": "/#/join/arden-north/details", "session": {"signup": {"clubId": "arden-north", "type": "regular", "workouts": 3, "access": "home", "duration": "two-years", "details": {"firstName": "Test", "lastName": "Person", "birthDate": "1990-05-01", "email": "test.person@example.com", "phoneCountry": "+31", "phone": "600000000", "street": "Sample Street", "houseNumber": "1", "postcode": "0000 AA", "city": "Arden", "country": "demoland", "iban": "NL13 TEST 0123 4567 89", "bic": "TESTNL2A", "bankName": "Test Bank (fake)", "consent": true}, "detailsSubmitted": false, "referral": "", "discountCode": "TEST-10", "verified": false}}},
+    {"route": "/#/join/arden-north/verify", "session": {"signup": {"clubId": "arden-north", "type": "regular", "workouts": 3, "access": "home", "duration": "two-years", "details": {"firstName": "Test", "lastName": "Person", "birthDate": "1990-05-01", "email": "test.person@example.com", "phoneCountry": "+31", "phone": "600000000", "street": "Sample Street", "houseNumber": "1", "postcode": "0000 AA", "city": "Arden", "country": "demoland", "iban": "NL13 TEST 0123 4567 89", "bic": "TESTNL2A", "bankName": "Test Bank (fake)", "consent": true}, "detailsSubmitted": true, "referral": "", "discountCode": "TEST-10", "verified": false}}},
+    {"route": "/#/success", "session": {"signup": {"clubId": "arden-north", "type": "regular", "workouts": 3, "access": "home", "duration": "two-years", "details": {"firstName": "Test", "lastName": "Person", "birthDate": "1990-05-01", "email": "test.person@example.com", "phoneCountry": "+31", "phone": "600000000", "street": "Sample Street", "houseNumber": "1", "postcode": "0000 AA", "city": "Arden", "country": "demoland", "iban": "NL13 TEST 0123 4567 89", "bic": "TESTNL2A", "bankName": "Test Bank (fake)", "consent": true}, "detailsSubmitted": true, "referral": "", "discountCode": "TEST-10", "verified": true}}}
+  ],
+  "states": {
+    "loading": {
+      "status": "pass",
+      "evidence": "story components-discountcode--applying (aria-busy, focus kept on Apply, second press and Enter emit nothing, field keeps text); unit DiscountCode.test.ts › emits nothing while applying; api.test.ts › answers after 600 ms, can be cancelled; e2e discount-code.spec.ts › a failed check offers a retry (AC 9) (aria-busy during the retry); visual tests/visual/app.spec.ts › app step-3-duration-applying pulse-dark 375 (applying held with a paused clock: Apply keeps the size and place it had before the press, on the field's row in the 291 px receipt row); unit DiscountCode.test.ts › sizes Apply with a hidden loading copy that no one can reach"
+    },
+    "empty": {
+      "status": "pass",
+      "evidence": "story components-discountcode--empty-submit (message, aria-invalid, announced, no apply event); unit DiscountCode.test.ts › shows the empty message and emits nothing for an empty or blank field. The receipt's own no-plan-yet state: components-receipt--empty, components-receipt--club-only; e2e › the field appears once the plan has a price (AC 1)"
+    },
+    "error": {
+      "status": "pass",
+      "evidence": "stories components-discountcode--network-error, --invalid, --expired, --not-eligible, --no-longer-applies, --kept-on-error; unit discount.test.ts (checkCode, rejectionMessage, nextApplied), api.test.ts › fails with ?mock=code-error; e2e › an unknown code shows the message (AC 5), a failed check offers a retry (AC 9), a rejected new code keeps the applied one (AC 13), removing the code after a rejected one drops the kept sentence (AC 11), a plan change drops a code that no longer applies (AC 14)"
+    },
+    "partial": {
+      "status": "not-applicable",
+      "reason": "A code is checked as a whole: one answer, applied in full or not at all. Nothing loads in parts."
+    },
+    "success": {
+      "status": "pass",
+      "evidence": "stories components-discountcode--applied (field emptied, focus on Apply, announcement), components-discountapplied--default (note, Remove named \"Remove code TEST-10\", emits remove by click, Enter, Space), components-discountapplied--narrow (Remove wraps under the note, no overflow, Tab and Enter), components-receiptline--deduction (\"−€2\", read \"€2 off\"), components-receipt--with-discount (Tab Remove → field → Apply → referral); unit discount.test.ts, pricing.test.ts, ReceiptLine.test.ts, DiscountApplied.test.ts; e2e › a valid code lowers the total (AC 2, 10), removing the code restores the total (AC 11), removing the code after a rejected one drops the kept sentence (AC 11), a new code replaces the applied one (AC 12), the discount reaches the success page (AC 16), the referral code leaves the discounted total alone (AC 20)"
+    },
+    "permission": {
+      "status": "not-applicable",
+      "reason": "The product has no accounts or roles (docs/spec.md §7), so every visitor may enter a code. Codes limited to some plans are covered by the not-eligible error."
+    }
+  },
+  "accessibility": {
+    "status": "pass",
+    "evidence": "axe (error level) clean on every story and on the DiscountCode, DiscountApplied, TextField, ReceiptLine and Receipt Matrix stories in all 6 themes; e2e a11y.spec.ts axe on step 3 with the field in 6 themes; pnpm contrast 210/210. Keyboard: DiscountCode Keyboard story (Tab to field, Enter applies with focus kept, Tab to Apply, Space), TextField WithAction (input → action, description unchanged), Receipt WithDiscount (Remove → field → Apply → referral), DiscountApplied Default (Tab, Enter, Space); e2e focus on Apply after applying, focus into the field after Remove. Announcements: one polite role=status in DiscountCode, mounted from the first render, checked for applied, replaced, kept, error, no-longer-applies and removed in e2e; no role=alert. Success and errors always carry an icon and words."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "visual tests/visual/app.spec.ts › step-3-duration-discount, step-4-details-discount, step-5-verify-discount, success-discount (arden-north, Home club, 2 years, TEST-10 applied; success shows First payment €20) in all 6 themes at 375 and 1280; after-shots shots/after/app_* of the same four routes, seeded with that signup from routes in this record, in 6 themes at 375 and 1280; e2e › the field and Apply share a row at 375 px and wrap at 320 px without overflow (AC 19, 21) (no horizontal scroll at either width); story components-discountapplied--narrow and its Matrix row: Remove wraps under the note below 155 px, which the 236 px discount line at 320 px reaches with text at 200 %; Apply is as wide idle as applying (hidden loading copy), so both wrap at the same width: beside the field in the 291 px receipt row at 375 and the 284 px Matrix column, under it in the 236 px row at 320 (visual app step-3-duration-applying pulse-dark 375; story components-discountcode--matrix)"
+  }
+}

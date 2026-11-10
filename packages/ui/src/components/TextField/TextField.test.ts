@@ -39,4 +39,44 @@ describe('TextField', () => {
     expect(document.activeElement).toBe(wrapper.find('input').element);
     wrapper.unmount();
   });
+
+  describe('action slot', () => {
+    const withAction = (props: Record<string, unknown> = {}) =>
+      mount(TextField, {
+        props: { label: 'Gift card number', id: 'card', hint: 'On the back.', ...props },
+        slots: { action: '<button type="button">Check</button>' },
+      });
+
+    it('renders the action after the input, outside the input wrapper', () => {
+      const wrapper = withAction();
+      const input = wrapper.get('input').element;
+      const button = wrapper.get('button').element;
+      expect(input.compareDocumentPosition(button) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      expect(input.parentElement?.contains(button)).toBe(false);
+      // Same row, which wraps when narrow.
+      expect(input.parentElement?.parentElement).toBe(button.parentElement?.parentElement);
+      expect(button.parentElement?.parentElement?.classList).toContain('flex-wrap');
+    });
+
+    it('keeps the label, description and invalid state of the input', () => {
+      const wrapper = withAction({ error: 'Enter all 8 characters.' });
+      const input = wrapper.get('input');
+      expect(wrapper.get('label').attributes('for')).toBe('card');
+      expect(input.attributes('aria-describedby')).toBe('card-hint card-error');
+      expect(input.attributes('aria-invalid')).toBe('true');
+    });
+
+    it('shows the error under the whole row', () => {
+      const wrapper = withAction({ error: 'Enter all 8 characters.' });
+      const row = wrapper.get('button').element.parentElement?.parentElement;
+      const error = wrapper.get('#card-error').element;
+      expect(row?.contains(error)).toBe(false);
+      expect(row && row.compareDocumentPosition(error) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
+    it('has no action row without the slot', () => {
+      const wrapper = mount(TextField, { props: { label: 'City' } });
+      expect(wrapper.find('.flex-wrap').exists()).toBe(false);
+    });
+  });
 });

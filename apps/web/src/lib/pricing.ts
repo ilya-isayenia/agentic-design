@@ -36,11 +36,14 @@ export function starterPrice(duration: DurationId): number {
   return find(DURATIONS, duration).starterFree ? 0 : STARTER_PACKAGE.price;
 }
 
-/** First payment: the first 4 weeks plus the starter package. */
-export function firstPayment(type: MembershipTypeId, access: AccessLevelId, duration: DurationId): PlanPrice {
+/**
+ * First payment: the first 4 weeks, less a discount code's deduction (cents, see lib/discount.ts), plus the starter
+ * package. The regular (struck-through) amount has no promo, the starter charged and no discount.
+ */
+export function firstPayment(type: MembershipTypeId, access: AccessLevelId, duration: DurationId, discount = 0): PlanPrice {
   const plan = planPrice(type, access, duration);
   const starter = starterPrice(duration);
-  return { amount: plan.amount + starter, regular: plan.regular + STARTER_PACKAGE.price };
+  return { amount: plan.amount - discount + starter, regular: plan.regular + STARTER_PACKAGE.price };
 }
 
 /** Price of one workout over a 4-week period; null when no workouts are planned. */

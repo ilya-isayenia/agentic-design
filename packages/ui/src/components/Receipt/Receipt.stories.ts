@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent } from 'storybook/test';
 import Receipt from './Receipt.vue';
 import ReceiptLine from '../ReceiptLine/ReceiptLine.vue';
+import DiscountApplied from '../DiscountApplied/DiscountApplied.vue';
+import DiscountCode from '../DiscountCode/DiscountCode.vue';
+import TextField from '../TextField/TextField.vue';
 import ThemeMatrix from '../../storybook/ThemeMatrix.vue';
 import StateLabel from '../../storybook/StateLabel.vue';
 
@@ -12,6 +15,22 @@ const LINES = `
   <ReceiptLine label="Starter package" :amount="1900" note="First payment" />
   <ReceiptLine label="Towel service" :amount="400" />`;
 const TOTAL = `<template #total><ReceiptLine label="Total" :amount="3500" emphasis="total" note="First payment" /></template>`;
+
+// Home club, 2 years, regular, with TEST-10 applied (docs/product/pricing.md).
+const DISCOUNT_LINES = `
+  <ReceiptLine label="Home club, 2 years" :amount="2200" :was="4400" note="per 4 weeks">Regular membership. Half price for 6 months, then €44.</ReceiptLine>
+  <ReceiptLine label="Starter package" :amount="0" :was="2500">Intro session with a coach, member card, water bottle.</ReceiptLine>
+  <ReceiptLine label="Discount" :amount="-200">
+    <template #below><DiscountApplied code="TEST-10" summary="10% off your first 4 weeks" /></template>
+  </ReceiptLine>`;
+const DISCOUNT_TOTAL = `<template #total><ReceiptLine label="Total" :amount="2000" :was="6900" emphasis="total" note="First payment" /></template>`;
+const DISCOUNT_FOOTER = `
+  <template #footer>
+    <div class="flex flex-col gap-6">
+      <DiscountCode hint="One code at a time. We take it off your first 4 weeks." announcement="TEST-10 applied. Your first payment is now €20." />
+      <TextField label="Referral code (optional)" hint="From a current member. We check it after you sign up." autocomplete="off" />
+    </div>
+  </template>`;
 
 const meta = {
   title: 'Components/Receipt',
@@ -63,6 +82,33 @@ export const WithFooter: Story = {
   }),
 };
 
+export const WithDiscount: Story = {
+  args: { club: CLUB },
+  render: (args) => ({
+    components: { Receipt, ReceiptLine, DiscountApplied, DiscountCode, TextField },
+    setup: () => ({ args }),
+    template: `<Receipt v-bind="args">${DISCOUNT_LINES}${DISCOUNT_TOTAL}${DISCOUNT_FOOTER}</Receipt>`,
+  }),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText('\u2212€2')).toBeVisible();
+    await expect(canvas.getByText('€20, was €69')).toBeInTheDocument();
+    // The code shows once: on the discount line, not in the footer.
+    await expect(canvas.getAllByText(/TEST-10 applied/)).toHaveLength(2); // the note, and the sr-only status sentence
+    await expect(canvas.getByRole('status')).toHaveTextContent('TEST-10 applied. Your first payment is now €20.');
+    // Tab order: Remove on the discount line, then the discount field, then Apply.
+    const remove = canvas.getByRole('button', { name: 'Remove code TEST-10' });
+    remove.focus();
+    await userEvent.tab();
+    const input = canvas.getByRole('textbox', { name: 'Discount code (optional)' });
+    await expect(input).toHaveFocus();
+    await expect(input).toHaveValue('');
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'Apply' })).toHaveFocus();
+    await userEvent.tab();
+    await expect(canvas.getByRole('textbox', { name: 'Referral code (optional)' })).toHaveFocus();
+  },
+};
+
 export const Matrix: Story = {
   parameters: {
     layout: 'fullscreen',
@@ -71,7 +117,7 @@ export const Matrix: Story = {
     a11y: { config: { rules: [{ id: 'landmark-unique', enabled: false }] } },
   },
   render: () => ({
-    components: { Receipt, ReceiptLine, ThemeMatrix, StateLabel },
+    components: { Receipt, ReceiptLine, DiscountApplied, DiscountCode, TextField, ThemeMatrix, StateLabel },
     setup: () => ({ club: CLUB }),
     template: `
       <ThemeMatrix :columns="1">
@@ -79,6 +125,7 @@ export const Matrix: Story = {
           <StateLabel label="empty"><Receipt /></StateLabel>
           <StateLabel label="club only"><Receipt :club="club" /></StateLabel>
           <StateLabel label="filled"><Receipt :club="club">${LINES}${TOTAL}</Receipt></StateLabel>
+          <StateLabel label="with discount"><Receipt :club="club">${DISCOUNT_LINES}${DISCOUNT_TOTAL}${DISCOUNT_FOOTER}</Receipt></StateLabel>
         </div>
       </ThemeMatrix>`,
   }),
