@@ -80,6 +80,9 @@ That is allowed. "A's layout with B's accent" or "more options with denser cards
 **22. Why Storybook and not Figma as the spec?**
 Storybook renders the real components with the real tokens, so what you approve is what ships. Checks run on it: axe, play functions, visual tests on the Matrix stories. A Figma file passes none of these and needs a sync that can drift. Figma can be added as a view and an input, with code as the source of truth ([overview §8](overview.md#8-what-is-next)).
 
+**22a. Why not Claude Design for prototypes or as the visual design system?**
+Its `/design-sync` builds a design system for Claude Design only from React 18+ components; on this Vue repo it reads the tokens and components and stops (tried 2026-11-10). So prototypes stay Storybook stories made from the real components. It is still useful before a new product: explore the look in claude.ai, export screenshots, put them next to the brief as a reference. With a React stack profile it would become the natural visual counterpart.
+
 **23. DTCG tokens, three tiers, a reset Tailwind theme — isn't that heavy for one app?**
 It is what makes six themes and agent safety cheap. Because the default theme is reset, an agent cannot use a colour outside the system: the class produces no CSS. Because the palette is not exported, a component cannot reach a raw colour. Adding a brand is adding token files. The cost was paid once, at setup.
 

@@ -128,6 +128,8 @@ The order: make the process hard to bypass, then measure, then extend.
 - **In the cycle:** a frame link sits next to the request; the spec-writer maps each value to a token or stops; the frame can seed variant A; the design-reviewer compares shots with it.
 - **Risks:** two sources drifting (one direction wins, and a check compares the exported JSON with the token files); seat cost; a frame is outside input, treated as data.
 
+**Claude Design.** Anthropic's design tool is available on every Claude plan and has Claude Code commands, but its `/design-sync` accepts only React 18+ design systems; on this Vue repo it stops (tried 2026-11-10). Today it fits one place: exploring the look of a new product before the brief, with exported screenshots as the reference. With a React stack profile it would become the visual counterpart of the design system.
+
 ## 9. Where to look
 
 | Question | File |

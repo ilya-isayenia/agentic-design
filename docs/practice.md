@@ -130,7 +130,7 @@ The last and main task. Everything before it was practice for this one.
 - **Goal:** a one-page, slide-like presentation site about your own work, built through `/change` size XL: brief, product spec, plan, child changes, whole-product review.
 - **What to do:**
   1. Copy [site-brief-template.md](site-brief-template.md) to `docs/briefs/<name>.md` (git-ignored) and fill it in yourself, in your own words: who you are, which cases you show, what you can honestly say about each. The main case is this repository: the signup app and its Storybook, with their live links.
-  2. Put screenshots of the reference format next to the brief, in `docs/briefs/<name>/`, and name them in the brief's References. The agent cannot open a password-protected reference; it can read a screenshot.
+  2. Put screenshots of the reference format next to the brief, in `docs/briefs/<name>/`, and name them in the brief's References. The agent cannot open a password-protected reference; it can read a screenshot. Optional: explore 2–3 looks for your site in Claude Design (claude.ai) first and add the chosen one's screenshots as a reference too; it cannot build on our Vue components, so it is a reference, not a source.
   3. Run `/change build a new presentation site from docs/briefs/<name>.md as a new app apps/site`.
   4. Decide at every stop yourself: the product spec, the plan, the plan again after the scaffold, the prototype choice for each section, the whole-product review, each merge.
 - **Notes:**
