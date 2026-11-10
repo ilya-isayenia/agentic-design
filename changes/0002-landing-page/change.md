@@ -9,7 +9,7 @@
 | type | feature |
 | size | XL |
 | status | open |
-| stage | plan |
+| stage | child 1 |
 | waiting for | — |
 | branch | change/0002-landing-page |
 | prototype rounds | 0 |
