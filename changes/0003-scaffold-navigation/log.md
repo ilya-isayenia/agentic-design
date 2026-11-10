@@ -16,3 +16,6 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 decision (validate): a `keys` option for route states in `pnpm shots` and the `apps/web` skip-link overlap (`apps/web/src/App.vue:25`) are follow-up changes, not part of 0003 by: agent
 - 2026-11-10 validate: round 2 — start
 - 2026-11-10 validate: round 2 — 1 critical (design), 1 required (design + a11y: the accepted e2e cannot detect a hidden skip link), 1 optional, code clean; fix round 2
+- 2026-11-10 validate: fix round 2 — r2 #1 and #2 fixed (78e7a88, faee45b, 54ed76b); pnpm check green
+- 2026-11-10 decision (validate): the reduced-motion `transition-property: all` effect on theme switches (stale `body` colour in shots, transitions under e2e measurement) is a follow-up ds or tools change, not part of 0003 — outside this change's paths and not blocking it once the sections set their own colour by: agent
+- 2026-11-10 validate: round 3 — start
