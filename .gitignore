@@ -13,4 +13,4 @@ tests/visual/.output/
 changes/review/
 changes/**/.review/
 .check/
-briefs/
+docs/briefs/

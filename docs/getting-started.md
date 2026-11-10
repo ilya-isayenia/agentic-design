@@ -109,8 +109,8 @@ Answer the stops as you would answer a colleague. If a variant is not right, say
 
 The cycle can also build something that does not exist yet: a landing page, a presentation site, another app on the same design system. That is size **XL — new product: spec → plan → child changes → whole-product review**.
 
-1. Copy [`site-brief-template.md`](site-brief-template.md) to `briefs/<name>.md` (git-ignored) and fill it in: purpose, audience, sections with content and media, references, brand, constraints. The template ends with a filled example.
-2. `/change build a new site from briefs/<name>.md`.
+1. Copy [`site-brief-template.md`](site-brief-template.md) to `docs/briefs/<name>.md` (git-ignored) and fill it in: purpose, audience, sections with content and media, references (screenshots next to it in `docs/briefs/<name>/`), brand, constraints. The template ends with a filled example.
+2. `/change build a new site from docs/briefs/<name>.md as a new app apps/<name>`. The capstone task [practice.md P8](practice.md#p8-capstone-build-your-own-presentation-site-from-scratch-xl) walks through it.
 3. Answer the stops:
 
 | Stop | What you see | What you answer |

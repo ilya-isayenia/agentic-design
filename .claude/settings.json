@@ -32,15 +32,10 @@
     ],
     "deny": [
       "Edit(/.claude/**)",
-      "Write(/.claude/**)",
       "Edit(/AGENTS.md)",
-      "Write(/AGENTS.md)",
       "Edit(/CLAUDE.md)",
-      "Write(/CLAUDE.md)",
       "Edit(/.github/**)",
-      "Write(/.github/**)",
       "Edit(/tests/visual/baselines/**)",
-      "Write(/tests/visual/baselines/**)",
       "Bash(git push --force*)",
       "Bash(git push -f*)",
       "Bash(git push * --force*)",
@@ -58,7 +53,7 @@
       "Bash(git push origin main*)",
       "Bash(git push -u origin main*)",
       "Bash(git push * main)",
-      "Bash(git push * main:*)"
+      "Bash(git push * main*)"
     ]
   }
 }

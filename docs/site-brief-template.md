@@ -1,10 +1,12 @@
 # Site brief — template
 
-Fill this in before you start a new site, app or product with `/change`. Save the filled copy anywhere in the repository folder (for example `briefs/<name>.md`, which you do not need to commit) and name it in the request:
+**How to use.** Copy this file to `docs/briefs/<name>.md` (git-ignored), fill it in, put screenshots of any reference next to it in `docs/briefs/<name>/`, and name the brief in the request:
 
 ```
-/change build a new site from briefs/<name>.md
+/change build a new site from docs/briefs/<name>.md as a new app apps/<name>
 ```
+
+The full walk-through, with the stops you decide, is the capstone task [practice.md P8](practice.md#p8-capstone-build-your-own-presentation-site-from-scratch-xl).
 
 The conductor copies the brief into the change as `brief.md`, the spec-writer turns it into a product spec (you accept it), then into a plan of child changes (you accept it), and each child runs the normal cycle with its own pull request. How the cycle works: [getting-started.md §7](getting-started.md#7-a-new-site-or-product).
 
@@ -39,7 +41,7 @@ One row per section or screen, in the order a visitor meets them.
 
 ## 4. References
 
-Up to three sites or products, each with one line: what to learn from it. "Pacing of one idea per screen", not "make it look like this".
+Up to three sites or products, each with one line: what to learn from it. "Pacing of one idea per screen", not "make it look like this". If a reference needs a login, put screenshots of it in `docs/briefs/<name>/` and list their file names here; the agent reads images, it cannot log in.
 
 ## 5. Brand
 

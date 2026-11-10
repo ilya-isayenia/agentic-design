@@ -108,7 +108,8 @@ Then, yourself:
 
 1. `pnpm evidence <id>`. It exits non-zero and lists what is missing (a state without evidence, a failed check, no shots for a brand, an open required finding). Missing items go back to the refiner once; if still missing, **stop** and show the list. Never open a PR with an incomplete evidence record.
 2. `git mv changes/<id>-<slug> changes/archive/<id>-<slug>`; set `status: done`, `stage: merge` in `change.md`; commit `change <id>: integrate — evidence complete`.
-3. `git push -u origin HEAD` and `gh pr create --base main --title "<type>: <summary> (<id>)" --body-file changes/archive/<id>-<slug>/evidence.md`. Write the PR link into `pr` in `change.md`, commit `change <id>: pr link`, push.
+3. **Sync with main** (also on every continue while waiting for merge, section 6): `git fetch` and `git merge origin/main`, never a rebase. If anything came in, run `pnpm check` and `pnpm evidence <id>` again and commit. Resolve a conflict yourself only when both sides can be kept as they are (rows added to the same table in a doc, two records, `pnpm-lock.yaml` through `pnpm install`); any other conflict: **stop** with the files.
+   Then `git push -u origin HEAD` and `gh pr create --base main --title "<type>: <summary> (<id>)" --body-file changes/archive/<id>-<slug>/evidence.md`. Write the PR link into `pr` in `change.md`, commit `change <id>: pr link`, push.
 4. **Stop** for merge: print the PR link. The human merges on GitHub; you never merge. A child of a new product stops as section 9.3 step 6 says.
 
 ## 4. Subagents
@@ -155,6 +156,7 @@ Every decision line in `log.md` ends with `by: human` or `by: agent`. No other d
 2. `git switch` to its `branch` from `change.md` (or the one `--find` printed); the tree must be clean.
    - Size XL (a parent): section 9.4.
    - A child (`parent` is set) waiting for merge whose PR is merged (`gh pr view <pr> --json state`): continue its parent (section 9.4).
+   - Waiting for merge and the PR is not merged: if `gh pr view <pr> --json mergeable` says `CONFLICTING`, or `main` moved, sync with main (3.5 step 3) and push. Then print the merge stop again and end.
 3. Read `change.md`, `log.md` and, if it exists, `review.md`. The stage and `waiting for` say where you are.
 4. If waiting and an answer is given: log it (section 5) and act on it from that stage. If waiting and no answer: print the stop again and end.
 5. If not waiting (the session broke mid-stage): rerun the current stage from its start; work already committed on the branch stays.
@@ -189,7 +191,7 @@ You keep the `Id`, `Status` and `PR` columns of `plan.md`; the spec-writer keeps
 
 ### 9.1 product spec
 
-Create the parent folder as in section 1 (or keep the one 3.1 created). If the request names a brief file, copy it to `brief.md`. Start **spec-writer** in mode `product` with the request, the folder and `brief.md`. It writes `product-spec.md` and returns `{ size: "XL", type, questions[] }`.
+Create the parent folder as in section 1 (or keep the one 3.1 created). If the request names a brief file, copy it to `brief.md`; reference screenshots next to it (`docs/briefs/<name>/`, git-ignored) stay where they are, and `brief.md` lists their paths. Start **spec-writer** in mode `product` with the request, the folder and `brief.md`. It writes `product-spec.md` and returns `{ size: "XL", type, questions[] }`.
 
 **Stop** always: "accept, or what to change", with its questions. Changes go back to the spec-writer (mode `product`) with the answer; then stop again.
 
@@ -215,7 +217,7 @@ Take the first row with status `planned`:
 `/change continue <id> [— answer]`:
 
 1. `git fetch --prune`, `pnpm evidence --find <id>`. If the newest copy is on a child branch and that child is not waiting for merge, print the child's stop (`/change continue <cid>`) and end.
-2. The active child's PR (`gh pr view <pr> --json state`) is not `MERGED`: print the stop again and end. Never take a re-plan answer before the merge.
+2. The active child's PR (`gh pr view <pr> --json state`) is not `MERGED`: sync it with main if it conflicts (section 6), print the stop again and end. Never take a re-plan answer before the merge.
 3. Merged: `git switch main && git pull --ff-only`; the parent folder is on `main` now. In the working tree (not committed on `main`): row `merged`, the answer as a decision line in the parent `log.md`.
 4. Re-plan answer: start **spec-writer** in mode `replan` with the answer; it rewrites the rows that are still `planned` and adds a line under "Changes to the plan". "As is" changes nothing.
 5. A row is `planned`: 9.3 from step 2 (`git switch -c` carries the uncommitted record onto the child branch, and its first commit holds it). None: section 9.5, whose step 1 carries it the same way.
