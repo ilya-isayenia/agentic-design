@@ -37,38 +37,88 @@ test('title and description', async ({ page }) => {
   );
 });
 
-test('skip link moves focus to main', async ({ page }) => {
-  await page.goto(DARK);
-  await page.keyboard.press('Tab');
+// The skip link is sr-only until focused. A focused sr-only link still has a 1×1 px box inside the
+// viewport, so position and overlap alone cannot tell a shown link from a hidden one: check that the
+// box is a real target (SC 2.5.8), that sr-only is undone, that the focus outline is drawn (SC 2.4.7)
+// and that the link carries its accent fill.
+async function expectSkipLinkShown(page: Page, at: string) {
   const skip = page.getByRole('link', { name: 'Skip to content' });
-  await expect(skip).toBeFocused();
+  await expect(skip, at).toBeFocused();
   const box = await skip.boundingBox();
   const viewport = page.viewportSize();
-  expect(box).not.toBeNull();
-  expect(viewport).not.toBeNull();
-  if (box && viewport) {
-    expect(box.x).toBeGreaterThanOrEqual(0);
-    expect(box.y).toBeGreaterThanOrEqual(0);
-    expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
-    expect(box.y + box.height).toBeLessThanOrEqual(viewport.height);
-  }
+  expect(box, at).not.toBeNull();
+  expect(viewport, at).not.toBeNull();
+  if (!box || !viewport) return null;
+  expect(box.width, `${at}: width`).toBeGreaterThanOrEqual(24);
+  expect(box.height, `${at}: height`).toBeGreaterThanOrEqual(24);
+  expect(box.x, at).toBeGreaterThanOrEqual(0);
+  expect(box.y, at).toBeGreaterThanOrEqual(0);
+  expect(box.x + box.width, at).toBeLessThanOrEqual(viewport.width);
+  expect(box.y + box.height, at).toBeLessThanOrEqual(viewport.height);
 
-  await page.keyboard.press('Enter');
-  await expect(page.locator('#main')).toBeFocused();
-  await page.keyboard.press('Tab');
-  await expect(page.getByRole('link', { name: 'Membership terms' })).toBeFocused();
+  const style = await skip.evaluate((el) => {
+    const s = getComputedStyle(el);
+    const root = getComputedStyle(document.documentElement);
+    const resolve = (name: string) => {
+      const probe = document.createElement('span');
+      probe.style.color = root.getPropertyValue(name);
+      document.body.append(probe);
+      const value = getComputedStyle(probe).color;
+      probe.remove();
+      return value;
+    };
+    return {
+      position: s.position,
+      // An sr-only box clips its text (overflow hidden), even when focus padding widens it.
+      textFits: el.scrollWidth <= el.clientWidth && el.scrollHeight <= el.clientHeight,
+      clipPath: s.clipPath,
+      outlineStyle: s.outlineStyle,
+      outlineWidth: parseFloat(s.outlineWidth),
+      background: s.backgroundColor,
+      color: s.color,
+      accent: resolve('--ds-color-accent'),
+      onAccent: resolve('--ds-color-on-accent'),
+    };
+  });
+  expect(style.position, `${at}: position`).toBe('static');
+  expect(style.clipPath, `${at}: clip-path`).toBe('none');
+  expect(style.textFits, `${at}: text not clipped`).toBe(true);
+  expect(style.outlineStyle, `${at}: outline style`).toBe('solid');
+  expect(style.outlineWidth, `${at}: outline width`).toBeGreaterThanOrEqual(2);
+  expect(style.background, `${at}: fill`).toBe(style.accent);
+  expect(style.color, `${at}: text`).toBe(style.onAccent);
+  return box;
+}
+
+test('skip link moves focus to main', async ({ page }) => {
+  for (const mode of ['dark', 'light'] as const) {
+    for (const width of [375, 1280]) {
+      const at = `pulse/${mode} at ${width} px`;
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`./?brand=pulse&mode=${mode}`);
+      await page.keyboard.press('Tab');
+      await expectSkipLinkShown(page, at);
+
+      await page.keyboard.press('Enter');
+      await expect(page.locator('#main'), at).toBeFocused();
+      await page.keyboard.press('Tab');
+      await expect(page.getByRole('link', { name: 'Membership terms' }), at).toBeFocused();
+    }
+  }
 });
 
 test('focused skip link does not cover the wordmark at 375 and 1280 px', async ({ page }) => {
   for (const width of [375, 1280]) {
+    const at = `at ${width} px`;
     await page.setViewportSize({ width, height: 900 });
     await page.goto(DARK);
     await page.keyboard.press('Tab');
-    const skip = await page.getByRole('link', { name: 'Skip to content' }).boundingBox();
+    // Only a shown link (at least 24 × 24 px, out of sr-only) is compared with the wordmark.
+    const skip = await expectSkipLinkShown(page, at);
     const wordmark = await page.getByRole('banner').getByText('Pulse').boundingBox();
-    expect(skip).not.toBeNull();
-    expect(wordmark).not.toBeNull();
-    if (skip && wordmark) expect(skip.y + skip.height, `at ${width} px`).toBeLessThanOrEqual(wordmark.y);
+    expect(skip, at).not.toBeNull();
+    expect(wordmark, at).not.toBeNull();
+    if (skip && wordmark) expect(skip.y + skip.height, at).toBeLessThanOrEqual(wordmark.y);
   }
 });
 

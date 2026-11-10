@@ -62,12 +62,12 @@
     },
     "skip link focused": {
       "status": "pass",
-      "evidence": "e2e smoke.spec.ts › skip link moves focus to main (visible inside the viewport, Enter focuses #main, next Tab reaches Membership terms), › focused skip link does not cover the wordmark at 375 and 1280 px (the link sits in the flow and pushes the header down; checked locally on pulse dark and light screenshots after Tab and after Tab+Enter at 375 and 1280: accent fill with padding and focus outline, then the outline around main). pnpm shots cannot press a key in a route state, so these screenshots are not in shots/after"
+      "evidence": "e2e tests/e2e/landing/smoke.spec.ts › skip link moves focus to main (pulse dark and light at 375 and 1280 px: after the first Tab the link is focused, its box is at least 24 × 24 px and inside the viewport, position static and clip-path none, its text not clipped, a solid focus outline at least 2 px wide, the accent fill with on-accent text; Enter focuses #main, the next Tab reaches Membership terms), › focused skip link does not cover the wordmark at 375 and 1280 px (the same visibility checks first, then the bottom of the link is above the wordmark)"
     }
   },
   "accessibility": {
     "status": "pass",
-    "evidence": "axe (wcag2a/2aa/21a/21aa/22aa) clean on ./?brand=pulse&mode=dark and ./?brand=pulse&mode=light at 1280 and 375 px (e2e › axe in pulse/dark, › axe in pulse/light); landmarks banner, main, contentinfo and one h1 then h2 (› frame renders); keyboard path: first Tab focuses the visible skip link, Enter moves focus to main, Tab order skip link → Membership terms → Privacy notice with nothing in between (› skip link moves focus to main, › frame tab order); no announcements needed (nothing changes without a user action except the visual theme); footer links underlined and min-h-12; nothing stored (› nothing is stored)"
+    "evidence": "axe (wcag2a/2aa/21a/21aa/22aa) clean on ./?brand=pulse&mode=dark and ./?brand=pulse&mode=light at 1280 and 375 px (e2e › axe in pulse/dark, › axe in pulse/light); landmarks banner, main, contentinfo and one h1 then h2 (› frame renders); keyboard path: first Tab focuses the skip link, shown at least 24 × 24 px out of sr-only with a solid focus outline in pulse dark and light at 375 and 1280 px, Enter moves focus to main, Tab order skip link → Membership terms → Privacy notice with nothing in between (› skip link moves focus to main, › frame tab order); no announcements needed (nothing changes without a user action except the visual theme); footer links underlined and min-h-12; nothing stored (› nothing is stored)"
   },
   "responsive": {
     "status": "pass",
