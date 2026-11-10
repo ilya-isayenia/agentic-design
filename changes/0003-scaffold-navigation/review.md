@@ -14,3 +14,13 @@
 Design score: 6.8/10. a11y-auditor: no findings.
 
 Fix round 1 notes (refiner): the `apps/web` skip link classes put the focused link over the wordmark (`focus:not-sr-only` resets the padding, `focus:absolute top-4 left-4` lands on the header); the landing link now sits in the flow. `apps/web/src/App.vue:25` has the same defect, out of scope here.
+
+## Round 2
+
+| # | Reviewer | Severity | Confidence | Where | Finding | Fix | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | design-reviewer | critical | 90 | `apps/landing/src/sections/Hero.vue:6`, `Plans.vue:6`; `shots/after/landing-{hero,plans}--default--pulse-light--*` | In the light Default stories the headings are white on the light page and nearly invisible; the sections set no colour role and only read right inside a wrapper with `text-text` (App, ThemeMatrix). No gate catches it: baselines cover only Matrix, axe on Default runs in pulse dark | `text-text` on each section's root; retake the light Default shots (DS rule C9) | open |
+| 2 | design-reviewer, a11y-auditor | required | 90 | `tests/e2e/landing/smoke.spec.ts:45-54`, `:62-73` | The e2e accepted as the skip-link-focused evidence cannot tell a shown link from a hidden one: an `sr-only` link has a 1×1 px box inside the viewport and above the wordmark, so both checks pass even if `focus:not-sr-only` never applies; no check of size (SC 2.5.8), outline (SC 2.4.7) or fill | After Tab assert width and height ≥ 24, `position: static` (or `clip-path: none`), outline style solid; compare overlap only once the box is ≥ 24 px; a `toHaveScreenshot` of the focused link in pulse dark and light records the fill and outline | open |
+| 3 | design-reviewer | optional | 80 | `apps/landing/src/sections/Plans.stories.ts:22`, `Plans.vue:7` | The Plans Default play function focuses `h2#plans`, so the Default shot shows the focused state; the outline spans the full column (~1190 px) around a ~220 px heading | Move the focus check to a `FocusTarget` story or blur after it; `w-fit` on the h2 | open |
+
+Design score: 6.9/10. code-reviewer: no findings (round 1 #1, #3, #4, #6 hold).

@@ -15,3 +15,4 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 decision (validate): option (a) — the e2e test is the evidence for the skip-link-focused state; it checks the link is visible, does not cover the wordmark at 375 and 1280 px, and that Enter moves focus to `main` by: agent
 - 2026-11-10 decision (validate): a `keys` option for route states in `pnpm shots` and the `apps/web` skip-link overlap (`apps/web/src/App.vue:25`) are follow-up changes, not part of 0003 by: agent
 - 2026-11-10 validate: round 2 — start
+- 2026-11-10 validate: round 2 — 1 critical (design), 1 required (design + a11y: the accepted e2e cannot detect a hidden skip link), 1 optional, code clean; fix round 2

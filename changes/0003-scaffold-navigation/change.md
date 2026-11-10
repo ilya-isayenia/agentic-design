@@ -13,5 +13,5 @@
 | waiting for | — |
 | branch | change/0003-scaffold-navigation |
 | prototype rounds | 0 |
-| review rounds | 1 |
+| review rounds | 2 |
 | pr | — |
