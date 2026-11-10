@@ -26,3 +26,11 @@ Fix round 1 notes (refiner): the `apps/web` skip link classes put the focused li
 Design score: 6.9/10. code-reviewer: no findings (round 1 #1, #3, #4, #6 hold).
 
 Fix round 2 notes (refiner): a second cause of #1 sits outside this change. The reduced-motion rule in `packages/ui/src/styles/index.css` sets `transition-duration: 0.01ms !important` on every element with `transition-property: all`, so after a theme switch `body` keeps the old colour for a frame and a shot can catch it; the same transition made the skip-link e2e measure `x = -1` once, and the test now waits for `getAnimations()`. Follow-up change (ds or tools), not part of 0003.
+
+## Round 3
+
+| # | Reviewer | Severity | Confidence | Where | Finding | Fix | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | design-reviewer | optional | 85 | `apps/landing/src/sections/Plans.stories.ts:22`, `Plans.vue:7`; `shots/after/landing-plans--default--*` | Round 2 #3 again: the Plans Default story ends focused, so its shots show a full-column outline around a ~220 px heading; Hero Default shows none | Move the focus check to a `FocusTarget` story or blur after it; `w-fit` on the h2 | open (optional) |
+
+Design score: 8.4/10. a11y-auditor: no findings (round 2 #2 closed: each visibility check fails with `focus:not-sr-only` removed). code-reviewer: no findings.

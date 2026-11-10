@@ -19,3 +19,4 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 validate: fix round 2 — r2 #1 and #2 fixed (78e7a88, faee45b, 54ed76b); pnpm check green
 - 2026-11-10 decision (validate): the reduced-motion `transition-property: all` effect on theme switches (stale `body` colour in shots, transitions under e2e measurement) is a follow-up ds or tools change, not part of 0003 — outside this change's paths and not blocking it once the sections set their own colour by: agent
 - 2026-11-10 validate: round 3 — start
+- 2026-11-10 validate: round 3 — no critical or required; 1 optional open (Plans Default story ends focused); validate done
