@@ -16,7 +16,7 @@ Size: M. The human's hint, and it fits: a new app frame with a theme composable 
    - a valid `?brand=` (any brand in `BRANDS`) wins, otherwise `pulse`. Invalid values are ignored one by one.
 2. Focus stays at the top of the document. Nothing moves focus without a user action.
 3. Top to bottom, at both widths:
-   - **Skip link** "Skip to content". It is hidden until it gets focus, then shows at the top left on an `accent` fill (the same classes as `apps/web`'s skip link).
+   - **Skip link** "Skip to content". It is hidden until it gets focus, then shows at the top left on an `accent` fill, in the flow above the header, so it pushes the header down instead of covering the wordmark (`apps/web`'s absolute skip link loses its padding to `not-sr-only` and covers its header).
    - **Header** (`banner` landmark). The wordmark "Pulse" is plain text: not a heading, not a link.
    - **`main`** (`id="main"`, `tabindex="-1"`), holding two sections:
      - Hero placeholder: only the `h1` "Train close to home or anywhere".
@@ -167,7 +167,7 @@ Children 3 and 4 extend `HERO` and `PLANS` instead of creating new files. Title 
 - **Other**:
   - links are underlined, so colour is never the only signal (SC 1.4.1);
   - footer links are `min-h-12` (S5);
-  - the skip link is keyboard-only, uses the same classes as `apps/web`'s, and is above 24 px (SC 2.5.8);
+  - the skip link is keyboard-only, sits in the flow (`focus:not-sr-only focus:self-start focus:mx-4 md:focus:mx-8 focus:mt-4 focus:px-4 focus:py-2`), never covers the wordmark, and is above 24 px (SC 2.5.8);
   - nothing animates, so reduced motion needs no still version here;
   - text reflows at 320 px (SC 1.4.10);
   - heights are `min-h-*` only (S6);

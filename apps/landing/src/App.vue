@@ -9,7 +9,7 @@ useTheme();
 
 <template>
   <div class="min-h-screen flex flex-col bg-bg text-text">
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-10 bg-accent text-on-accent px-4 py-2">{{ FRAME.skipLink }}</a>
+    <a href="#main" class="sr-only focus:not-sr-only focus:mx-4 focus:mt-4 focus:self-start focus:px-4 focus:py-2 md:focus:mx-8 bg-accent text-on-accent">{{ FRAME.skipLink }}</a>
     <header>
       <div class="mx-auto w-full max-w-page px-4 py-6 md:px-8">
         <p class="font-display text-h2 font-extrabold uppercase">{{ FRAME.wordmark }}</p>

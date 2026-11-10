@@ -59,6 +59,19 @@ test('skip link moves focus to main', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Membership terms' })).toBeFocused();
 });
 
+test('focused skip link does not cover the wordmark at 375 and 1280 px', async ({ page }) => {
+  for (const width of [375, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(DARK);
+    await page.keyboard.press('Tab');
+    const skip = await page.getByRole('link', { name: 'Skip to content' }).boundingBox();
+    const wordmark = await page.getByRole('banner').getByText('Pulse').boundingBox();
+    expect(skip).not.toBeNull();
+    expect(wordmark).not.toBeNull();
+    if (skip && wordmark) expect(skip.y + skip.height, `at ${width} px`).toBeLessThanOrEqual(wordmark.y);
+  }
+});
+
 test('frame tab order', async ({ page }) => {
   await page.goto(DARK);
   await page.keyboard.press('Tab');
