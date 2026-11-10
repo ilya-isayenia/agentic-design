@@ -9,7 +9,7 @@
 | Branch | `change/0003-scaffold-navigation` |
 | Decisions | 0 by human, 3 by agent |
 | Review | 10 finding(s), 0 open critical/required; Design score: 8.4 |
-| Checks | 9/9 green at `b4547cc` |
+| Checks | 9/9 green at `005f827` |
 
 ## Evidence status
 
@@ -79,13 +79,13 @@ Responsive: no sideways scroll at 320 and 375 px (e2e › no sideways scroll at 
 ## Checks
 
 - ✅ tokens (0s)
-- ✅ typecheck (2s)
+- ✅ typecheck (3s)
 - ✅ lint (2s)
-- ✅ unit (3s)
+- ✅ unit (4s)
 - ✅ storybook (7s)
 - ✅ contrast (0s)
-- ✅ visual (13s)
-- ✅ e2e (11s)
+- ✅ visual (18s)
+- ✅ e2e (15s)
 - ✅ denylist (0s)
 
 ## Screenshots
@@ -127,4 +127,4 @@ Stories: `landing-hero--default`, `landing-hero--matrix`, `landing-plans--defaul
 | 1 | design-reviewer | optional | 85 | `apps/landing/src/sections/Plans.stories.ts:22`, `Plans.vue:7`; `shots/after/landing-plans--default--*` | Round 2 #3 again: the Plans Default story ends focused, so its shots show a full-column outline around a ~220 px heading; Hero Default shows none | Move the focus check to a `FocusTarget` story or blur after it; `w-fit` on the h2 | open (optional) |
 
 ---
-Built by `pnpm evidence 0003` from `changes/0003-scaffold-navigation`. Full record: [change.md](https://github.com/ilya-isayenia/agentic-design/blob/change/0003-scaffold-navigation/changes/archive/0003-scaffold-navigation/change.md), [log.md](https://github.com/ilya-isayenia/agentic-design/blob/change/0003-scaffold-navigation/changes/archive/0003-scaffold-navigation/log.md), [review.md](https://github.com/ilya-isayenia/agentic-design/blob/change/0003-scaffold-navigation/changes/archive/0003-scaffold-navigation/review.md).
+Built by `pnpm evidence 0003` from `changes/archive/0003-scaffold-navigation`. Full record: [change.md](https://github.com/ilya-isayenia/agentic-design/blob/change/0003-scaffold-navigation/changes/archive/0003-scaffold-navigation/change.md), [log.md](https://github.com/ilya-isayenia/agentic-design/blob/change/0003-scaffold-navigation/changes/archive/0003-scaffold-navigation/log.md), [review.md](https://github.com/ilya-isayenia/agentic-design/blob/change/0003-scaffold-navigation/changes/archive/0003-scaffold-navigation/review.md).

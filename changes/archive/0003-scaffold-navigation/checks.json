@@ -1,7 +1,7 @@
 {
-  "commit": "b4547cc568e574d1b8cc7ee28bd0a8027027ffc5",
-  "dirty": true,
-  "at": "2026-11-10T09:36:25.615Z",
+  "commit": "005f82767f0d8a0889ea125a8c7f3ab827ddf910",
+  "dirty": false,
+  "at": "2026-11-10T09:40:20.484Z",
   "steps": [
     {
       "id": "tokens",
@@ -11,7 +11,7 @@
     {
       "id": "typecheck",
       "passed": true,
-      "seconds": 2
+      "seconds": 3
     },
     {
       "id": "lint",
@@ -21,7 +21,7 @@
     {
       "id": "unit",
       "passed": true,
-      "seconds": 3
+      "seconds": 4
     },
     {
       "id": "storybook",
@@ -36,12 +36,12 @@
     {
       "id": "visual",
       "passed": true,
-      "seconds": 13
+      "seconds": 18
     },
     {
       "id": "e2e",
       "passed": true,
-      "seconds": 11
+      "seconds": 15
     },
     {
       "id": "denylist",

@@ -22,3 +22,4 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 validate: round 3 — no critical or required; 1 optional open (Plans Default story ends focused); validate done
 - 2026-11-10 integrate: start
 - 2026-11-10 integrate: done — nothing to wire beyond refine (app, e2e project and Pages pick up `apps/landing`); pnpm check 9/9 green at b4547cc; denylist clean with the real list; pnpm evidence complete
+- 2026-11-10 sync: merged origin/main (0001 discount code); copy.md conflict resolved keeping both sides; pnpm check 9/9 green; denylist clean with the real list; evidence complete
