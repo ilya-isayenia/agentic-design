@@ -8,9 +8,9 @@
 | parent | 0002-landing-page |
 | type | feature |
 | size | M |
-| status | open |
+| status | waiting |
 | stage | validate |
-| waiting for | — |
+| waiting for | evidence for the skip-link-focused state |
 | branch | change/0003-scaffold-navigation |
 | prototype rounds | 0 |
 | review rounds | 1 |
