@@ -37,6 +37,8 @@ You type `/change <what you want, in plain words>` in Claude Code. The `change` 
 
 The spec-writer proposes the size; the human can change it at any stop. Questions from any subagent are an extra stop at any size.
 
+**A new product is a mode, not a size step: XL — new product: spec → plan → child changes → whole-product review.** A person fills [site-brief-template.md](site-brief-template.md). The parent change turns it into a product spec and a plan of child changes; the first child scaffolds a new app in `apps/<name>/` on the same design system, each later child adds a section as an ordinary S, M or L change with its own PR. After the first child the plan is shown again for reordering; after the last, the design and accessibility reviewers look at the assembled product once, because each child's review saw only its slice. Rules: `change/SKILL.md` §9.
+
 **Where the human decides.** At a stop the conductor commits, prints the question and ends with `Answer with: /change continue <id> — <your answer>`. Plain words work: "accept", "B", "A's layout with B's accent". The answer goes into `log.md` as a decision ending `by: human`. In an unattended run (the request carries `--unattended`, or an answer starts with `agent:`) the conductor decides, writes `by: agent` and the reason. There is no third kind of decision.
 
 **Stop and ask instead of guessing.** Subagents cannot talk to the human. When a token or component is missing, the spec is ambiguous or contradicts `docs/product/`, or work would leave a subagent's write scope, it returns a question and the conductor stops.
@@ -132,6 +134,7 @@ The order: make the process hard to bypass, then measure, then extend.
 | --- | --- |
 | Rules for every agent | `AGENTS.md`, `CLAUDE.md` |
 | The cycle, sizes, stops, resume | `.claude/skills/change/SKILL.md` |
+| A new site or product: the brief, then XL | `docs/site-brief-template.md`, `change/SKILL.md` §9 |
 | Each subagent: inputs, write scope, output | `.claude/agents/*.md` |
 | DS rules, accessibility, Vue profile | `.claude/skills/ds-rules/`, `a11y-checklist/`, `stack-vue/` |
 | What agents may not do | `.claude/settings.json`, `AGENTS.md` rule 7 |

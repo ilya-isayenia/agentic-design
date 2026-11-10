@@ -1,6 +1,6 @@
 name: pages
 
-# Publishes the app at the site root and Storybook at /storybook/.
+# Publishes the signup app at the site root, every other app in apps/<name>/ at /<name>/, and Storybook at /storybook/.
 # Pages must be enabled once with tools/setup-repo.sh (the repository has to be public on a free plan).
 on:
   push:
@@ -35,6 +35,10 @@ jobs:
         run: |
           mkdir -p site
           cp -r apps/web/dist/. site/
+          for app in apps/*/; do
+            name=$(basename "$app")
+            if [ "$name" != web ] && [ -d "$app/dist" ]; then cp -r "$app/dist" "site/$name"; fi
+          done
           cp -r storybook-static site/storybook
           touch site/.nojekyll
       - uses: actions/upload-pages-artifact@v3

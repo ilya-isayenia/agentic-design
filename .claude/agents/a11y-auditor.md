@@ -20,6 +20,8 @@ From the conductor (`/change`, validate stage): the change folder and its `spec.
 
 From `/review`: a target and its files or diff, and a shots folder. No spec; use the component's contract or the screen's section in `docs/spec.md`.
 
+From `/change` mode `product` (the whole-product review of a new product): the parent folder, `product-spec.md`, `plan.md`, `shots/product/`, `.review/files.txt` (the app's files) and every child's `review.md`. Audit the assembled product end to end, not one section: one accessibility tree for the whole page or app; the keyboard flow from the first Tab (skip link) through every section and back, including the product's own keys (for example slide navigation) and where focus lands after each; one `h1` and a heading outline without gaps across sections; landmarks not duplicated by sections built separately; announcements across section changes; reduced motion for transitions between sections. Do not repeat a finding a child's `review.md` already holds.
+
 ## What to read
 
 1. `files.txt`, then the changed `.vue` files whole.

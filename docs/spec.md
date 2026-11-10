@@ -89,6 +89,7 @@ changes/<NNNN>-<slug>/
   review.md      reviewers' findings and what was fixed
   evidence.md    checks, screenshots, story links — what the human reads before merge (built by tools/evidence)
   shots/         screenshots from tools/shots, including the explorations shown in prototype rounds
+  product-spec.md, plan.md   a new product's parent change only (XL, below)
 ```
 
 `/change continue 0008` finds the folder whose name starts with `0008`.
@@ -100,8 +101,11 @@ changes/<NNNN>-<slug>/
 | S | spacing, copy, a colour, a small bug | spec (short) → refine → validate → integrate | merge |
 | M | a new state, a new variant, a changed layout | spec → prototype (1 round, optional) → refine → validate → integrate | prototype choice, merge |
 | L | a new screen, flow or feature | spec → prototype (rounds until chosen) → refine → validate → integrate | spec, prototype choice, merge |
+| XL | a new site, app or product | product spec → plan → child changes (each S, M or L) → whole-product review | product spec, plan, each child's merge, re-plan after the first child, whole-product findings, merge of the record |
 
 The spec-writer proposes the size; the human can change it.
+
+**XL — new product: spec → plan → child changes → whole-product review.** XL is a mode for a product that does not exist yet, not a bigger change. The person fills `docs/site-brief-template.md` (purpose, audience, sections with content and media, references, brand, constraints) and names it in the request. The parent change writes `product-spec.md` (purpose, audience, sections or screens, content per section, an existing brand or new brand tokens, out of scope) and, after the human accepts it, `plan.md`: the child changes in build order, each with a size and a scope. The first child is always the scaffold of a new app in `apps/<name>/` on `packages/ui` and the tokens, with its navigation and an e2e smoke test; `pnpm check`, Storybook and Pages pick up every app in `apps/*`. Each child is a normal change with its own folder, branch and PR, linked by `parent` in its `change.md`; the next child starts from `main` after the previous one is merged. After the first child the plan is shown again and the human may reorder, add or drop children. After the last child the design-reviewer and the a11y-auditor review the assembled product once (narrative order, visual rhythm and consistency across sections, navigation and keyboard flow end to end); their findings become a final fix child or go to the human. The parent's `evidence.md` summarises every child and that review and goes to `main` in one last PR with the record.
 
 ### 5.2 Commands
 

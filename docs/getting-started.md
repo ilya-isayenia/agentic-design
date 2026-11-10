@@ -104,3 +104,23 @@ Three ready requests. Start with the first; each is a real **L** change with a s
    ```
 
 Answer the stops as you would answer a colleague. If a variant is not right, say why; the prototyper never repeats a rejected idea.
+
+## 7. A new site or product
+
+The cycle can also build something that does not exist yet: a landing page, a presentation site, another app on the same design system. That is size **XL — new product: spec → plan → child changes → whole-product review**.
+
+1. Copy [`site-brief-template.md`](site-brief-template.md) to `briefs/<name>.md` (git-ignored) and fill it in: purpose, audience, sections with content and media, references, brand, constraints. The template ends with a filled example.
+2. `/change build a new site from briefs/<name>.md`.
+3. Answer the stops:
+
+| Stop | What you see | What you answer |
+| --- | --- | --- |
+| Product spec | `changes/<id>/product-spec.md` | `accept`, or what to change |
+| Plan | `changes/<id>/plan.md`: the child changes in order, each with size S, M or L | `accept`, or reorder, add, drop, resize |
+| Each child | the child's own stops (spec, prototype, merge), with its own id | as for any change; merge its PR, then `/change continue <parent id>` |
+| Re-plan, after the first child | the plan again, now that the app's frame exists | `as is`, or what to change |
+| Whole-product review | findings about the assembled product: order, rhythm, consistency, keyboard flow | `fix child` (default), or defer or reject each |
+| Merge of the record | a last PR with the product's record and `evidence.md` summarising every child | merge it |
+
+The first child creates `apps/<name>/`; `pnpm check`, Storybook and the Pages site pick it up without config changes. Run it locally with `pnpm --filter @agentic/<name> dev`.
+

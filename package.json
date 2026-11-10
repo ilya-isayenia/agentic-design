@@ -9,7 +9,7 @@
   "scripts": {
     "tokens": "pnpm --filter @agentic/tokens build",
     "dev": "pnpm tokens && pnpm --filter @agentic/web dev",
-    "build": "pnpm tokens && pnpm --filter @agentic/web build",
+    "build": "pnpm tokens && pnpm --filter './apps/*' build",
     "storybook": "pnpm tokens && storybook dev -p 6006",
     "build-storybook": "pnpm tokens && storybook build -o storybook-static --quiet",
     "typecheck": "pnpm tokens && vue-tsc --noEmit -p tsconfig.json",

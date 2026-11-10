@@ -5,8 +5,9 @@
 | id | <id> |
 | slug | <slug> |
 | request | <the request, verbatim> |
+| parent | <— \| the parent change <id>-<slug> of a new product> |
 | type | <feature \| edit \| ds \| fix> |
-| size | <S \| M \| L> |
+| size | <S \| M \| L \| XL> |
 | status | open |
 | stage | spec |
 | waiting for | — |

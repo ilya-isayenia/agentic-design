@@ -37,7 +37,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['packages/ui/src/**/*.{ts,vue}', 'apps/web/src/**/*.{ts,vue}'],
+    files: ['packages/ui/src/**/*.{ts,vue}', 'apps/*/src/**/*.{ts,vue}'],
     ignores: ['**/*.test.ts', '**/data/**'],
     plugins: { ds },
     rules: { 'ds/no-raw-values': 'error' },

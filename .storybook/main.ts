@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import { fileURLToPath } from 'node:url';
 
 const config: StorybookConfig = {
-  stories: ['../packages/ui/src/**/*.stories.ts', '../apps/web/src/**/*.stories.ts'],
+  stories: ['../packages/ui/src/**/*.stories.ts', '../apps/*/src/**/*.stories.ts'],
   addons: ['@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
   framework: { name: '@storybook/vue3-vite', options: { docgen: 'vue-component-meta' } },
   core: { disableTelemetry: true },

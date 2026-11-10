@@ -24,7 +24,7 @@ Read the spec, `log.md` (decisions and the chosen variant), the chosen variant's
 ## Write scope
 
 - `refine`, `fix`: only the paths in the spec's "Paths to touch", plus `changes/<id>/evidence.json`.
-- `integrate`: those paths plus `apps/web/src/` (data, composables, screens, routes), `tests/e2e/`, and deleting `**/explorations/<id>/`.
+- `integrate`: those paths plus the app's `src/` (data, composables, screens, routes; `apps/web/src/` unless the spec names another app), `tests/e2e/` (another app: `tests/e2e/<app>/`), and deleting `**/explorations/<id>/`.
 - Baselines only through `pnpm test:visual:update`, never by hand.
 - Never: `.claude/**`, `AGENTS.md`, `CLAUDE.md`, `.github/**`, `tests/visual/baselines/**` by hand, other changes' folders. No force-push, no `--no-verify`.
 - Work that needs a path outside the scope, a token or component the DS lacks, or a product rule the spec and `docs/product/` do not give: stop and return `blocked` with the question.
@@ -39,10 +39,14 @@ Read the spec, `log.md` (decisions and the chosen variant), the chosen variant's
    - `<Name>.test.ts` for logic (validation, formatting, computed rules).
 3. Rules and copy: prices and rules in `apps/web/src/data/` and `apps/web/src/lib/` with unit tests; changed copy also in `docs/product/copy.md`; a new component also in `docs/ds/components.md`.
 4. Fast loop while building: `pnpm typecheck`, `pnpm lint`, `pnpm test:unit`, `pnpm exec vitest run --project storybook <path>`, `pnpm contrast` if colours are involved.
-5. Write `changes/<id>/evidence.json` in the format of the conductor's template: `contract` (one sentence), `viewports` `["375", "1280"]`, `stories` (every state story and Matrix id; the conductor shoots what this lists), `routes` (existing routes the change affects), `states` (all six: `pass` with the story or test that proves it, or `not-applicable` with a reason), `accessibility` and `responsive` (`pass` with what was checked).
+5. Write `changes/<id>/evidence.json` in the format of the conductor's template: `contract` (one sentence), `viewports` `["375", "1280"]`, `stories` (every state story and Matrix id; the conductor shoots what this lists), `routes` (existing routes the change affects; a route of another app carries `"app": "<app>"`), `brands` only when the app is built for fewer brands than the DS has (a product's brands from its `plan.md`), `states` (all six: `pass` with the story or test that proves it, or `not-applicable` with a reason), `accessibility` and `responsive` (`pass` with what was checked).
 6. Commit the work: `change <id>: refine — <what>`.
 7. If visuals changed (any Matrix or screen): `pnpm test:visual:update`, then a separate commit with only `tests/visual/baselines/**`: `baselines: <reason>`. It runs in Docker; if Docker is not available, return `blocked`.
 8. `pnpm check`. Red: fix within scope and repeat. A failure outside your scope (also present on `main`): return `blocked` with the failing check.
+
+## A new app (the scaffold child of a new product)
+
+Follow the stack profile's "A new app" recipe. After adding `apps/<app>/package.json`, run `pnpm install` and commit `pnpm-lock.yaml` with the scaffold. The new app must build (`pnpm build` builds every app), show its stories in Storybook, and have its e2e smoke test in `tests/e2e/<app>/`; `pnpm check` then covers it with no config change. Sections built later go into the same app; a section's Matrix story gets a visual baseline through `pnpm test:visual:update` like any other.
 
 ## Mode `fix`
 
@@ -52,9 +56,9 @@ Read the spec, `log.md` (decisions and the chosen variant), the chosen variant's
 
 ## Mode `integrate`
 
-1. Wire the work into `apps/web/src/`: mock data in `data/`, rules in `lib/`, state in composables (no Pinia), routes in the hash router. Each state must be reachable through the mock triggers in `docs/product/mock-data.md` (add a trigger and document it if a state has none).
-2. Add the e2e scenario in `tests/e2e/` from the spec's acceptance criteria: one test per criterion that a user can see in the app, with the criterion number in the test title.
-3. Delete `packages/ui/src/explorations/<id>/` and `apps/web/src/explorations/<id>/`.
+1. Wire the work into the app's `src/` (`apps/web/src/` unless the spec names another app): mock data in `data/`, rules in `lib/`, state in composables (no Pinia), routes in the hash router if the app has one. In the signup app each state must be reachable through the mock triggers in `docs/product/mock-data.md` (add a trigger and document it if a state has none).
+2. Add the e2e scenario in `tests/e2e/` (another app: `tests/e2e/<app>/`, which `pnpm test:e2e` runs as that app's project) from the spec's acceptance criteria: one test per criterion that a user can see in the app, with the criterion number in the test title.
+3. Delete `packages/ui/src/explorations/<id>/` and `apps/<app>/src/explorations/<id>/`.
 4. Update `evidence.json`: `routes` with the app routes, e2e tests added to the state evidence.
 5. Commit `change <id>: integrate — <what>`; baselines as in refine if screens changed; `pnpm check`.
 

@@ -123,6 +123,23 @@ How to use:
   - What contrast do `chart-1`…`chart-5` and `chart-label` need, and why are they different? (`docs/ds/colour.md`)
   - Which of your answers at the spec stop could an agent not have decided? Why?
 
+### P8 An XL change: a presentation site from a brief
+
+- **Goal:** build a new product from scratch through the same cycle: brief, product spec, plan, child changes, whole-product review.
+- **What to do:**
+  - Copy the example at the end of [site-brief-template.md](site-brief-template.md) to `briefs/cases.md`. Change it to a subject you know: your own three cases, invented figures, the brand you like best. Keep "illustration only" on every coded illustration.
+  - `/change build a new site from briefs/cases.md`. Read `product-spec.md` against your brief before you accept it: is every section there, and is every `Assumption:` one you agree with?
+  - At the plan stop, look at the children: is the first one the scaffold and navigation; is each child small enough to review in one sitting? Change one thing (merge two sections, or split one).
+  - Run the children. Merge each PR after reading its `evidence.md`, then `/change continue <parent id>`. At the re-plan stop after the scaffold, change the order or drop a child, and see the plan file record it.
+  - Read the whole-product review: what did it find that the per-child reviews could not?
+  - Merge the last PR with the record. Open the site with `pnpm --filter @agentic/cases dev`, and walk it with the keyboard alone.
+- **Done when:** the site runs from `apps/cases/`; every child PR and the record PR are merged; the parent's `evidence.md` is complete; every decision at the product-spec, plan and re-plan stops ends `by: human`.
+- **Defend it:**
+  - Why is a new product many changes and not one big one? What does the plan buy you, and what does the merge between children cost? (Q31)
+  - Why does the plan come back after the first child, and not after every child?
+  - What can the whole-product review see that the reviewers of each child cannot?
+  - Where does a brief's text end up, and what stops a pasted reference or a client's name from reaching the repository?
+
 ---
 
-After P7, answer every question in [defending.md](defending.md) out loud, in your own words, with the file you would open to prove it.
+After P8, answer every question in [defending.md](defending.md) out loud, in your own words, with the file you would open to prove it.

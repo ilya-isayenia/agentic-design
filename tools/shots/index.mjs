@@ -4,13 +4,14 @@
 //   --label <name>        sub-folder: before | round-1 | after | review (default: after)
 //   --stories a,b         Storybook story ids
 //   --routes r1,r2        app routes after '#', e.g. /join/arden-north/access
+//   --app <name>          the app in apps/ the --routes belong to (default: web)
 //   --session file.json   sessionStorage to set before each route, { "<key>": <value> } (e.g. the signup state)
-//   --from-record         stories, routes and viewports from changes/<id>/evidence.json; a route there is
-//                         a string or { "route": "/join/…", "session": { "signup": { … } } }
-//   --brands, --modes     default: all brands, both modes
+//   --from-record         stories, routes, viewports and brands from changes/<id>/evidence.json; a route there
+//                         is a string or { "route": "/join/…", "app": "landing", "session": { "signup": { … } } }
+//   --brands, --modes     default: the record's "brands", else every brand in packages/tokens/src/brands; both modes
 //   --viewports 375,1280  widths in CSS px (default 375,1280)
 //   --before              build Storybook and the app at the merge base with main, label "before"
-//   --no-build            reuse storybook-static/ and apps/web/dist/
+//   --no-build            reuse storybook-static/ and apps/*/dist/
 // Matrix stories (ids ending in --matrix) already render all six themes, so they are shot once per
 // width as <id>--all-themes--<width>.png.
 import { spawn, spawnSync } from 'node:child_process';
@@ -18,6 +19,7 @@ import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync }
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { chromium } from '@playwright/test';
+import { appMounts, basePath, brands as tokenBrands } from '../apps.mjs';
 
 const args = process.argv.slice(2);
 const id = args[0];
@@ -48,25 +50,31 @@ const before = flag('before');
 const label = before ? 'before' : opt('label', 'after');
 let stories = list(opt('stories'));
 const globalSession = opt('session') ? JSON.parse(readFileSync(opt('session'), 'utf8')) : null;
-/** @type {{ route: string, session: Record<string, unknown> | null }[]} */
-let routes = list(opt('routes')).map((route) => ({ route, session: globalSession }));
+const app = opt('app', 'web');
+/** @type {{ route: string, app: string, session: Record<string, unknown> | null }[]} */
+let routes = list(opt('routes')).map((route) => ({ route, app, session: globalSession }));
 let viewports = list(opt('viewports', '375,1280')).map(Number);
+/** @type {string[]} */
+let recordBrands = [];
 if (flag('from-record')) {
   const record = JSON.parse(readFileSync(join(dir, 'evidence.json'), 'utf8'));
   stories = [...stories, ...(record.stories ?? [])];
   routes = [
     ...routes,
     ...(record.routes ?? []).map((/** @type {any} */ r) =>
-      typeof r === 'string' ? { route: r.replace(/^.*#/, ''), session: globalSession } : { route: String(r.route).replace(/^.*#/, ''), session: r.session ?? globalSession },
+      typeof r === 'string'
+        ? { route: r.replace(/^.*#/, ''), app: 'web', session: globalSession }
+        : { route: String(r.route).replace(/^.*#/, ''), app: r.app ?? 'web', session: r.session ?? globalSession },
     ),
   ];
   if (record.viewports?.length) viewports = record.viewports.map(Number);
+  if (record.brands?.length) recordBrands = record.brands;
 }
 if (!stories.length && !routes.length) {
   console.error('Nothing to shoot: pass --stories, --routes or --from-record');
   process.exit(2);
 }
-const brands = list(opt('brands', 'pulse,volt,lumen'));
+const brands = opt('brands') ? list(opt('brands')) : recordBrands.length ? recordBrands : tokenBrands();
 const modes = list(opt('modes', 'dark,light'));
 
 const run = (/** @type {string} */ cmd, /** @type {string} */ cwd) => {
@@ -90,7 +98,7 @@ if (before || !flag('no-build')) {
 }
 
 const port = 6200 + Math.floor(Math.random() * 500);
-const server = spawn('node', [resolve('tools/serve.mjs'), String(port), `/storybook/=${join(root, 'storybook-static')}`, `/agentic-design/=${join(root, 'apps/web/dist')}`], { stdio: 'ignore' });
+const server = spawn('node', [resolve('tools/serve.mjs'), String(port), `/storybook/=${join(root, 'storybook-static')}`, ...appMounts(root)], { stdio: 'ignore' });
 await new Promise((r) => setTimeout(r, 500));
 
 const out = join(dir, 'shots', label);
@@ -114,11 +122,11 @@ try {
           await page.screenshot({ path: join(out, `${safe(story)}--${theme}--${width}.png`), fullPage: true, animations: 'disabled' });
           count++;
         }
-        for (const { route, session } of routes) {
-          const url = `http://127.0.0.1:${port}/agentic-design/?brand=${brand}&mode=${mode}#${route}`;
+        for (const { route, app: routeApp, session } of routes) {
+          const url = `http://127.0.0.1:${port}${basePath(routeApp)}?brand=${brand}&mode=${mode}#${route}`;
           if (session) {
             // Seed sessionStorage on a neutral page first, so the route's guards see the state.
-            await page.goto(`http://127.0.0.1:${port}/agentic-design/#/legal/terms`);
+            await page.goto(`http://127.0.0.1:${port}${basePath(routeApp)}${routeApp === 'web' ? '#/legal/terms' : ''}`);
             await page.evaluate((items) => {
               sessionStorage.clear();
               for (const [k, v] of Object.entries(items)) sessionStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v));
@@ -128,7 +136,8 @@ try {
           if (session) await page.reload();
           await page.waitForLoadState('networkidle');
           await page.evaluate(() => document.fonts.ready);
-          await page.screenshot({ path: join(out, `app_${safe(route)}--${brand}-${mode}--${width}.png`), fullPage: true, animations: 'disabled' });
+          const prefix = routeApp === 'web' ? 'app' : `app-${routeApp}`;
+          await page.screenshot({ path: join(out, `${prefix}_${safe(route)}--${brand}-${mode}--${width}.png`), fullPage: true, animations: 'disabled' });
           count++;
         }
       }

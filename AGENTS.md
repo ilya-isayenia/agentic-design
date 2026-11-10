@@ -4,7 +4,7 @@ A membership signup app on its own multi-brand design system. What it is and why
 
 ## Every piece of work is a change
 
-Any work — feature, edit, design-system change, fix — goes through `/change` (`.claude/skills/change/`). It creates `changes/<id>/`, a branch `change/<id>`, and runs the stages for the change's size. Do not edit `main` directly.
+Any work — feature, edit, design-system change, fix, or a new site, app or product (size XL, from a brief in `docs/site-brief-template.md`) — goes through `/change` (`.claude/skills/change/`). It creates `changes/<id>/`, a branch `change/<id>`, and runs the stages for the change's size. Do not edit `main` directly.
 
 ## Stack profile
 
@@ -17,9 +17,10 @@ Active profile: **`stack-vue`** (`.claude/skills/stack-vue/`). Only that profile
 | `packages/tokens/src/` | DTCG tokens: `core.json`, `brands/<brand>/<mode>.json` |
 | `packages/ui/src/components/<Name>/` | `<Name>.vue`, `.contract.md`, `.stories.ts`, `.test.ts` |
 | `apps/web/src/` | screens, routes, composables, mock data in `data/` |
+| `apps/<app>/` | another site or product on the same design system, made by a size XL change; served at `/agentic-design/<app>/` |
 | `docs/ds/`, `docs/product/` | design-system rules, pricing and copy |
 | `changes/` | one folder per change; `changes/archive/` when merged |
-| `tests/e2e/`, `tests/visual/` | Playwright; visual baselines in `tests/visual/baselines/` |
+| `tests/e2e/`, `tests/visual/` | Playwright (another app's e2e in `tests/e2e/<app>/`); visual baselines in `tests/visual/baselines/` |
 | `tools/` | contrast, shots, evidence, denylist, check |
 
 ## Rules

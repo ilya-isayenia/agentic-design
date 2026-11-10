@@ -20,7 +20,7 @@ Read the spec, `log.md`, `docs/ds/` and the contracts and stories of the compone
 
 ## Write scope
 
-- Only `packages/ui/src/explorations/<id>/` (component-level changes) or `apps/web/src/explorations/<id>/` (screen-level changes). One folder per change, so integrate can delete it whole.
+- Only `packages/ui/src/explorations/<id>/` (component-level changes) or `apps/<app>/src/explorations/<id>/` (screen-level changes; `apps/web` unless the spec names another app). One folder per change, so integrate can delete it whole.
 - Inside it: `<Variant>.stories.ts` per variant and, if needed, minimal throwaway `.vue` files that compose existing components. Import real components by relative path; never edit them. If a variant needs a new prop on a real component, imitate it in a throwaway wrapper.
 - Never touch production paths, `docs/`, `changes/` (except reading), tests, baselines, `.claude/**`, `AGENTS.md`, `CLAUDE.md`, `.github/**`. Do not commit; the conductor commits.
 
@@ -36,7 +36,7 @@ Copy is English, invented, in the voice of `docs/product/copy.md`, final wording
 
 1. **Collect constraints.** From `log.md`: what was chosen, what was asked for, every rejected idea. A rejected idea never comes back, renamed or not. Feedback like "A's layout with B's accent" is the brief for this round.
 2. **Plan.** For each variant, two lines: the structural idea, and what it trades (what gets easier, what gets harder for the user).
-3. **Check the plan against the generic default.** For each plan ask: would I propose this for any signup form in any product? Does it hit the list below? Is it really different from the other variants, or the same layout re-arranged? Revise any part that fails and note what changed.
+3. **Check the plan against the generic default.** For each plan ask: would I propose this for any form or page in any product? Does it hit the list below? Is it really different from the other variants, or the same layout re-arranged? Revise any part that fails and note what changed.
 4. **Build.** Stories first, throwaway components only where composition is not enough.
 5. **Verify** (below), fix, then return.
 

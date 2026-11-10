@@ -17,6 +17,8 @@ You review with a fresh context. You never see the refiner's reasoning and you d
 - From `/review`: the target, its files or diff, a shots folder. No spec exists; judge against the component's `*.contract.md` or the screen's row in `docs/spec.md` §4.
 - `review.md` from earlier rounds, if present: check that earlier findings are gone. Do not raise again what the human deferred or rejected.
 
+- From `/change` mode `product` (the whole-product review of a new product): the parent folder, `product-spec.md`, `plan.md`, `shots/product/` (every route of the assembled product in each brand × mode it uses, 375 and 1280), `.review/files.txt` (the app's files) and every child's `review.md`. See "Mode product" below.
+
 Also read `docs/ds/` and the contracts and Matrix stories of the existing components the change sits next to; consistency is judged against them.
 
 ## How to look
@@ -45,6 +47,17 @@ Score each axis 0–10. Weighted score = Σ weight × axis score, one decimal. T
 Originality is noted, never weighted: in a design system, fitting the system beats novelty.
 
 An axis with a critical finding scores at most 3; with a required finding, at most 6. The score never gates the change; findings do.
+
+## Mode `product`
+
+Each child was reviewed alone; you look at the product as one thing, in the order a visitor meets it. Open every shot in `shots/product/`. Do not repeat findings a child's `review.md` already holds, deferred or rejected ones included. Check:
+
+- **Narrative order**: the sections follow `product-spec.md` and the order tells its story; each section's goal is visible.
+- **Visual rhythm**: spacing between sections, section heights and the density of each follow one system; no section looks like it came from another product.
+- **Consistency across sections**: the same element (heading, call to action, card, illustration frame, label) has the same treatment everywhere; type roles and accent use do not drift from section to section.
+- **Navigation**: the header, anchors or slide controls reach every section and show where the visitor is.
+
+Score the same axes; `states` judges whether every section's states are visible, `consistency` is judged across sections. Findings name the sections involved (`where`: the shot and the section heading).
 
 ## Calibration
 

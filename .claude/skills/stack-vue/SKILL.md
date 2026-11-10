@@ -37,6 +37,25 @@ Stack: Vue 3.5 (`<script setup lang="ts">`), TypeScript strict with `noUnchecked
 
 Screens import the design system as `@agentic/ui`, app code as `@web/...`. Components never import from `apps/`.
 
+## A new app
+
+A new site or product (the scaffold child of a size XL change) gets its own folder `apps/<app>/` (kebab case) on `@agentic/ui` and the tokens. Take the frame of `apps/web`, not its screens:
+
+| File | What |
+| --- | --- |
+| `apps/<app>/package.json` | `"name": "@agentic/<app>"`, private, `"type": "module"`, scripts `dev`, `build`, `preview` as in `apps/web`; dependencies `@agentic/ui: workspace:*` and `vue` at the same version as `apps/web`; `vue-router` only if the app has routes |
+| `apps/<app>/vite.config.ts` | as `apps/web`'s without the alias, `base: '/agentic-design/<app>/'` (where `tools/apps.mjs` serves it in e2e, shots and Pages), its own dev and preview ports |
+| `apps/<app>/index.html` | `<html lang="en" data-brand="<brand>" data-mode="<mode>">` with the product's brand, a real title and description |
+| `apps/<app>/src/main.ts` | `import '@agentic/ui/styles.css'`, `createApp(App).mount('#app')` |
+| `apps/<app>/src/App.vue` | skip link to `#main`, `header`, `<main id="main" tabindex="-1">`, `footer`; one `h1` on the page |
+| `apps/<app>/src/composables/useTheme.ts` | brand and mode from `?brand=&mode=` (shots and e2e set them), else the product's brand and mode; no theme switcher unless the spec asks for one |
+| `apps/<app>/src/sections/<Name>.vue` | one component per section or screen; `.stories.ts` next to it with `title: '<App>/<Section>'` (e.g. `Landing/Hero`), a story per state and a `Matrix` story with `ThemeMatrix` imported by relative path from `packages/ui/src/storybook/` |
+| `tests/e2e/<app>/smoke.spec.ts` | opens `./`; the main landmark and the `h1` are visible; axe clean in each brand × mode the product uses (as `tests/e2e/a11y.spec.ts`); the first Tab reaches the skip link and Enter moves focus to `main` |
+
+- Imports inside the app are relative (`./sections/Hero.vue`): no path alias, so `tsconfig.json`, Vitest and Storybook need no change. The design system comes from the `@agentic/ui` package.
+- Typecheck, lint with `ds/no-raw-values`, unit and Storybook tests, `pnpm build`, e2e (one Playwright project per app) and Pages all find the app through `apps/*`. Run `pnpm install` after adding `package.json` and commit `pnpm-lock.yaml`.
+- Content that changes per section (copy, items of a list) lives in `apps/<app>/src/content/` as typed constants, so stories and the page show the same words.
+
 ## Component API
 
 ```vue
