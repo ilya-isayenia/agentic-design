@@ -13,3 +13,5 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 plan: start
 - 2026-11-10 plan: written — 4 children: scaffold-navigation (M), button-link (M, ds), hero (M), plans-teaser (L); no questions
 - 2026-11-10 waiting (plan): accept the plan, or reorder, add, drop or resize children
+- 2026-11-10 decision (plan): accept the plan as written — scaffold first keeps the ds PR free of landing code by: agent
+- 2026-11-10 plan: accepted — 4 children, build order as written

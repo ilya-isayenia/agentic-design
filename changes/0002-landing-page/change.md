@@ -8,9 +8,9 @@
 | parent | — |
 | type | feature |
 | size | XL |
-| status | waiting |
+| status | open |
 | stage | plan |
-| waiting for | plan approval |
+| waiting for | — |
 | branch | change/0002-landing-page |
 | prototype rounds | 0 |
 | review rounds | 0 |
