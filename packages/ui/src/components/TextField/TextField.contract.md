@@ -25,7 +25,8 @@ One line of text input with a visible label: names, email, phone, address, IBAN.
 
 | Slot | Content |
 | --- | --- |
-| `end` | inside the field on the right: a spinner while checking, a check icon when valid. Give icons a `label` if they carry meaning |
+| `end` | inside the field on the right: a spinner while checking, a check icon when valid. Give icons a `label` if they carry meaning. Not for controls |
+| `action` | one control after the input on the same row, outside its border, e.g. an Apply button. It is not part of the input's name or description. The input takes the remaining width and keeps at least five ninths of the row (`basis-5/9`); with less room the action wraps under the input (SC 1.4.10). The error shows under the whole row |
 
 | Event | Payload | When |
 | --- | --- | --- |
@@ -47,10 +48,11 @@ One line of text input with a visible label: names, email, phone, address, IBAN.
 | checking | spinner in `end` | spinner on the right | wait or move on |
 | readonly | `readonly` | `surface-raised` background, focusable | read; change the source field |
 | disabled | `disabled` | 60 % opacity, not focusable | fix what blocks it |
+| with action | `action` slot | the control after the input on the same row, 2 spacing apart; it wraps under the input when the row is narrow; an error shows under the row | type, then Tab to the action |
 
 ## Tokens
 
-`surface`, `surface-raised`, `text`, `text-muted`, `border-strong`, `danger`, `focus`; `font-text`, `text-body`, `text-small`; spacing 1–4, 12; motion `duration-fast`, `ease-standard`.
+`surface`, `surface-raised`, `text`, `text-muted`, `border-strong`, `danger`, `focus`; `font-text`, `text-body`, `text-small`; spacing 1–4, 12 (2 between the input and the action); motion `duration-fast`, `ease-standard`.
 
 ## Accessibility
 
@@ -59,6 +61,7 @@ One line of text input with a visible label: names, email, phone, address, IBAN.
 - Required: native `required` makes screen readers say "required"; the visual `*` is `aria-hidden` so it is not read twice. Put `novalidate` on the form so browser bubbles do not replace our messages.
 - Height 48 px (SC 2.5.8 needs 24).
 - `autocomplete` tokens on personal data (SC 1.3.5).
+- The action follows the input in DOM and tab order and needs its own accessible name; the input's name and description do not include it.
 
 ## Do and don't
 
@@ -66,3 +69,5 @@ One line of text input with a visible label: names, email, phone, address, IBAN.
 - Do validate on blur and on submit, not on every key.
 - Don't use the placeholder as the label or the hint.
 - Don't hide the label; if the design has no room, the design changes.
+- Don't put the screen's primary action in `action`; it is for a secondary action on this one field, such as Apply.
+- Don't put a control in `end`; interactive content goes in `action`.

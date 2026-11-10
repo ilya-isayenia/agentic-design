@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
-import { expect, userEvent } from 'storybook/test';
+import { expect, fn, userEvent } from 'storybook/test';
 import TextField from './TextField.vue';
+import Button from '../Button/Button.vue';
 import Icon from '../Icon/Icon.vue';
 import Spinner from '../Icon/Spinner.vue';
 import ThemeMatrix from '../../storybook/ThemeMatrix.vue';
@@ -73,6 +74,53 @@ export const WithEndSlot: Story = {
     template: '<TextField v-bind="args" v-model="value"><template #end><Icon name="check-circle" label="Valid" /></template></TextField>',
   }),
 };
+export const WithAction: Story = {
+  args: { label: 'Gift card number', autocomplete: 'off', hint: 'The 8 characters on the back of the card.' },
+  render: (args) => ({
+    components: { TextField, Button },
+    setup: () => ({ args, value: ref(args.modelValue ?? ''), onCheck: fn() }),
+    template: `
+      <TextField v-bind="args" v-model="value">
+        <template #action><Button variant="secondary" @click="onCheck">Check</Button></template>
+      </TextField>`,
+  }),
+  play: async ({ canvas }) => {
+    // Tab order: input, then the action.
+    await userEvent.tab();
+    const input = canvas.getByRole('textbox', { name: 'Gift card number' });
+    await expect(input).toHaveFocus();
+    await userEvent.keyboard('TEST0001');
+    await userEvent.tab();
+    const action = canvas.getByRole('button', { name: 'Check' });
+    await expect(action).toHaveFocus();
+    // The action is not part of the input's name or description.
+    await expect(input).toHaveAccessibleName('Gift card number');
+    await expect(input).toHaveAccessibleDescription('The 8 characters on the back of the card.');
+    // The input comes first in the DOM too.
+    await expect(input.compareDocumentPosition(action) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  },
+};
+export const WithActionInvalid: Story = {
+  args: {
+    label: 'Gift card number',
+    autocomplete: 'off',
+    modelValue: 'TEST',
+    hint: 'The 8 characters on the back of the card.',
+    error: 'Enter all 8 characters of the card number.',
+  },
+  render: WithAction.render,
+  play: async ({ canvas }) => {
+    const input = canvas.getByRole('textbox', { name: 'Gift card number' });
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(input).toHaveAccessibleDescription(
+      'The 8 characters on the back of the card. Error: Enter all 8 characters of the card number.',
+    );
+    // The error sits under the whole row, after the action.
+    const action = canvas.getByRole('button', { name: 'Check' });
+    const error = canvas.getByText('Enter all 8 characters of the card number.');
+    await expect(action.compareDocumentPosition(error) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  },
+};
 export const Keyboard: Story = {
   args: { label: 'Phone', type: 'tel', autocomplete: 'tel', inputmode: 'tel' },
   play: async ({ canvas }) => {
@@ -87,7 +135,7 @@ export const Keyboard: Story = {
 export const Matrix: Story = {
   parameters: { layout: 'fullscreen' },
   render: () => ({
-    components: { TextField, ThemeMatrix, StateLabel, Icon, Spinner },
+    components: { TextField, ThemeMatrix, StateLabel, Icon, Spinner, Button },
     template: `
       <ThemeMatrix>
         <div class="grid gap-4 sm:grid-cols-2">
@@ -99,6 +147,8 @@ export const Matrix: Story = {
           <StateLabel label="valid"><TextField label="IBAN, checked" model-value="NL00TEST0123456789"><template #end><Icon name="check-circle" label="Valid" /></template></TextField></StateLabel>
           <StateLabel label="readonly"><TextField label="BIC" model-value="TESTNL00" readonly /></StateLabel>
           <StateLabel label="disabled"><TextField label="Country" model-value="Testland" disabled /></StateLabel>
+          <StateLabel label="with action"><TextField label="Gift card number" hint="The 8 characters on the back of the card."><template #action><Button variant="secondary">Check</Button></template></TextField></StateLabel>
+          <StateLabel label="with action, invalid"><TextField label="Gift card, checked" model-value="TEST" error="Enter all 8 characters of the card number."><template #action><Button variant="secondary">Check</Button></template></TextField></StateLabel>
         </div>
       </ThemeMatrix>`,
   }),

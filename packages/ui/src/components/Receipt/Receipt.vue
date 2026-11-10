@@ -44,7 +44,7 @@ const isEmpty = () => props.empty ?? (!props.club && !hasLines());
 </script>
 
 <template>
-  <aside :aria-labelledby="titleId" class="flex w-full max-w-receipt flex-col gap-4 rounded-md border-2 border-border bg-surface p-6">
+  <aside :aria-labelledby="titleId" class="flex w-full max-w-receipt flex-col gap-4 rounded-md border-2 border-border bg-surface p-6 text-text">
     <h2 :id="titleId" class="font-display text-body font-semibold uppercase text-text-muted">{{ title }}</h2>
 
     <div v-if="isEmpty()" class="flex flex-col items-center gap-3 py-8 text-center text-text-muted">

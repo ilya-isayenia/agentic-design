@@ -33,3 +33,6 @@ export type { ClubPrice } from './components/ClubCard/ClubCard.vue';
 export { default as ReceiptLine } from './components/ReceiptLine/ReceiptLine.vue';
 export { default as Receipt } from './components/Receipt/Receipt.vue';
 export type { ReceiptClub } from './components/Receipt/Receipt.vue';
+export { default as DiscountCode } from './components/DiscountCode/DiscountCode.vue';
+export type { DiscountCodeStatus } from './components/DiscountCode/DiscountCode.vue';
+export { default as DiscountApplied } from './components/DiscountApplied/DiscountApplied.vue';

@@ -34,6 +34,13 @@ describe('pricing', () => {
     expect(firstPayment('regular', 'home', 'two-years')).toEqual({ amount: 2200, regular: 6900 });
   });
 
+  it('takes a discount off the first payment but not off the struck-through total', () => {
+    // Home club, 2 years, TEST-10: €22 becomes €20; the struck-through total stays €69.
+    expect(firstPayment('regular', 'home', 'two-years', 200)).toEqual({ amount: 2000, regular: 6900 });
+    // Home club, flex, TEST-FLEX20: €59.50 becomes €47.50, plus the €25 starter package.
+    expect(firstPayment('regular', 'home', 'flex', 1200)).toEqual({ amount: 7250, regular: 8450 });
+  });
+
   it('prices one workout', () => {
     expect(pricePerWorkout(2400, 0)).toBeNull();
     expect(pricePerWorkout(2400, 3)).toBe(200);

@@ -3,6 +3,7 @@ import { CLUBS, addressOf } from '@web/data/clubs';
 import { ACCESS_LEVELS, DURATIONS, MEMBERSHIP_TYPES, type AccessLevelId, type DurationId, type MembershipTypeId } from '@web/data/plans';
 import { emptyDetails, validateDetails, type Details } from '@web/lib/details';
 import { firstPayment, planPrice, starterPrice } from '@web/lib/pricing';
+import { checkCode, discountAmount, findDiscount } from '@web/lib/discount';
 
 export const STEPS = [
   { id: 'type', label: 'Membership type' },
@@ -23,13 +24,15 @@ interface SignupState {
   details: Details;
   detailsSubmitted: boolean;
   referral: string;
+  /** The applied discount code, '' if none. */
+  discountCode: string;
   verified: boolean;
 }
 
 const KEY = 'signup';
 
 function fresh(): SignupState {
-  return { clubId: null, type: null, workouts: 0, access: null, duration: null, details: emptyDetails(), detailsSubmitted: false, referral: '', verified: false };
+  return { clubId: null, type: null, workouts: 0, access: null, duration: null, details: emptyDetails(), detailsSubmitted: false, referral: '', discountCode: '', verified: false };
 }
 
 function load(): SignupState {
@@ -68,8 +71,16 @@ export function useSignup() {
     state.type && state.access && state.duration ? planPrice(state.type, state.access, state.duration) : null,
   );
   const starter = computed(() => (state.duration ? starterPrice(state.duration) : null));
+  /** The applied code and what it takes off the first 4 weeks; null when none applies to the chosen plan. */
+  const discount = computed(() => {
+    const found = findDiscount(state.discountCode);
+    if (!found || !state.duration || !price.value || checkCode(found.code, state.duration) !== 'applied') return null;
+    return { code: found.code, summary: found.summary, amount: discountAmount(price.value.amount, found.off) };
+  });
   const total = computed(() =>
-    state.type && state.access && state.duration ? firstPayment(state.type, state.access, state.duration) : null,
+    state.type && state.access && state.duration
+      ? firstPayment(state.type, state.access, state.duration, discount.value?.amount ?? 0)
+      : null,
   );
   const clubAddress = computed(() => (club.value ? addressOf(club.value) : ''));
 
@@ -81,5 +92,5 @@ export function useSignup() {
     Object.assign(state, fresh());
   }
 
-  return { state, club, clubAddress, type, access, duration, done, firstOpen, price, starter, total, startWith, reset };
+  return { state, club, clubAddress, type, access, duration, done, firstOpen, price, starter, discount, total, startWith, reset };
 }
