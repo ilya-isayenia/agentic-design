@@ -17,6 +17,7 @@ export function resolveTheme(search: string, prefersLight: boolean): { brand: Br
 /**
  * Applies the landing page's theme to `<html>` and follows a live change of the system preference while no
  * `?mode=` is set. Nothing is stored. Call it in `setup`; the listener is removed when the scope ends.
+ * Call once, in App; sections receive `mode` as a prop.
  */
 export function useTheme(): { brand: Readonly<Ref<Brand>>; mode: Readonly<Ref<Mode>> } {
   const media = typeof window.matchMedia === 'function' ? window.matchMedia(LIGHT_QUERY) : undefined;
