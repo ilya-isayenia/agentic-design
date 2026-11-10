@@ -19,11 +19,11 @@ useTheme();
       <Hero />
       <Plans />
     </main>
-    <footer class="mx-auto w-full max-w-page px-4 py-8 font-text text-small text-text-muted md:px-8">
-      <p class="max-w-prose">{{ FRAME.demoLine }}</p>
+    <footer class="mx-auto w-full max-w-page px-4 py-8 font-text text-small md:px-8">
+      <p class="max-w-prose text-text-muted">{{ FRAME.demoLine }}</p>
       <ul class="flex flex-wrap gap-4">
         <li v-for="link in FRAME.legal" :key="link.href">
-          <a :href="link.href" class="inline-flex min-h-12 items-center underline">{{ link.label }}</a>
+          <a :href="link.href" class="inline-flex min-h-12 items-center text-text underline">{{ link.label }}</a>
         </li>
       </ul>
     </footer>

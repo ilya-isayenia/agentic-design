@@ -118,7 +118,7 @@ Structure:
 Calls `useTheme()` once in `setup`.
 
 Tokens:
-- roles: `bg`, `text`, `text-muted` (footer), `accent` + `on-accent` (skip link only), `focus` (global outline);
+- roles: `bg`, `text` (also the footer links), `text-muted` (the demo line only), `accent` + `on-accent` (skip link only), `focus` (global outline);
 - type: `font-display text-h2 font-extrabold uppercase` (wordmark), `font-text text-small` (footer);
 - spacing: `px-4 md:px-8`, `py-6` (header), `py-8` (footer), `gap-4` (footer links);
 - layout: `max-w-page`, and `max-w-prose` on the footer line;
