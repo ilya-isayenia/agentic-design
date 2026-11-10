@@ -14,4 +14,4 @@
 | branch | change/0003-scaffold-navigation |
 | prototype rounds | 0 |
 | review rounds | 3 |
-| pr | — |
+| pr | https://github.com/ilya-isayenia/agentic-design/pull/2 |
