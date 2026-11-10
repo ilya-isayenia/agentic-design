@@ -1,0 +1,28 @@
+{
+  "contract": "A visitor opening /agentic-design/landing/ gets the landing page frame (skip link, Pulse header, main with the final h1 and h2#plans, footer with the demo line and the signup app's legal links) in pulse dark or light following the system preference, with ?brand=/?mode= overriding it.",
+  "viewports": ["375", "1280"],
+  "stories": [],
+  "routes": [{ "route": "/", "app": "landing" }],
+  "brands": ["pulse"],
+  "states": {
+    "loading": { "status": "not-applicable", "reason": "no request is made after the bundle runs; all content is typed constants inside it, so there is nothing to wait for" },
+    "empty": { "status": "not-applicable", "reason": "the frame's copy is typed constants in apps/landing/src/content/, and vue-tsc fails the build if one is missing; the page cannot render without its text" },
+    "error": { "status": "not-applicable", "reason": "no request, no form, no input; the only links go to static pages of the signup app on the same origin" },
+    "partial": { "status": "not-applicable", "reason": "there is one bundled source and nothing arrives in parts" },
+    "success": { "status": "pass", "evidence": "e2e tests/e2e/landing/smoke.spec.ts › frame renders, › title and description, › legal links open the signup app's placeholders" },
+    "permission": { "status": "not-applicable", "reason": "no accounts and no gated content; every visitor gets the same page" },
+    "dark (default)": { "status": "pass", "evidence": "e2e smoke.spec.ts › theme follows the system unless the query sets it; unit useTheme.test.ts › resolveTheme gives pulse dark with no query and no light preference, › falls back to dark when window.matchMedia is undefined" },
+    "light (system)": { "status": "pass", "evidence": "e2e smoke.spec.ts › theme follows the system unless the query sets it (on load and on a live preference change); unit useTheme.test.ts › follows a change of the system preference when there is no valid ?mode=" },
+    "query override": { "status": "pass", "evidence": "e2e smoke.spec.ts › theme follows the system unless the query sets it (?mode=dark under a light preference); unit useTheme.test.ts › lets a valid ?mode= win over the preference, › ignores a change of the system preference when ?mode= is set" },
+    "invalid query": { "status": "pass", "evidence": "e2e smoke.spec.ts › theme follows the system unless the query sets it (?brand=nope&mode=nope); unit useTheme.test.ts › ignores an unknown brand and an unknown mode one by one" },
+    "skip link focused": { "status": "pass", "evidence": "e2e smoke.spec.ts › skip link moves focus to main (visible inside the viewport, Enter focuses #main, next Tab reaches Membership terms)" }
+  },
+  "accessibility": {
+    "status": "pass",
+    "evidence": "axe (wcag2a/2aa/21a/21aa/22aa) clean on ./?brand=pulse&mode=dark and ./?brand=pulse&mode=light at 1280 and 375 px (e2e › axe in pulse/dark, › axe in pulse/light); landmarks banner, main, contentinfo and one h1 then h2 (› frame renders); keyboard path: first Tab focuses the visible skip link, Enter moves focus to main, Tab order skip link → Membership terms → Privacy notice with nothing in between (› skip link moves focus to main, › frame tab order); no announcements needed (nothing changes without a user action except the visual theme); footer links underlined and min-h-12; nothing stored (› nothing is stored)"
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "no sideways scroll at 320 and 375 px (e2e › no sideways scroll at 320 and 375 px); one column with padding 4 at 375 px and max-w-page with padding 8 from md at 1280 px checked on local screenshots; main is flex-1 so the footer sits at the bottom of a tall window"
+  }
+}

@@ -22,4 +22,6 @@ Voice: short, direct, second person; verbs on buttons; no exclamation marks; num
 | Receipt | "Your membership receipt"; empty: "Choose a club and a plan to see your price here." |
 | Success | "You're in" ; next steps: bring ID, collect the member card, book the intro session |
 
+The landing page (`apps/landing`) keeps its copy in `apps/landing/src/content/` as typed constants, in the same voice.
+
 Field labels, hints and error messages live next to the code (`apps/web/src/lib/details.ts`) and follow the same voice: say what to do, not what went wrong ("Enter your postcode", not "Postcode invalid").
