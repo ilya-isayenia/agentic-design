@@ -9,3 +9,4 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 refine: start
 - 2026-11-10 refine: done — apps/landing frame, useTheme, content, smoke e2e (10 tests); pnpm check green; 4 after shots (pulse dark/light × 375/1280)
 - 2026-11-10 validate: start
+- 2026-11-10 validate: round 1 — 4 required (design 3, code 1), 2 optional, a11y clean; fix round 1
