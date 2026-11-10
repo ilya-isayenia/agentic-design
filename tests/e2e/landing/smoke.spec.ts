@@ -44,6 +44,9 @@ test('title and description', async ({ page }) => {
 async function expectSkipLinkShown(page: Page, at: string) {
   const skip = page.getByRole('link', { name: 'Skip to content' });
   await expect(skip, at).toBeFocused();
+  // Under reduced motion the base stylesheet keeps a 0.01 ms transition on every property, so the
+  // margin can still be mid-transition on the first frame; measure once it has finished.
+  await skip.evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)));
   const box = await skip.boundingBox();
   const viewport = page.viewportSize();
   expect(box, at).not.toBeNull();
