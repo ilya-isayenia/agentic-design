@@ -20,3 +20,5 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 decision (validate): the reduced-motion `transition-property: all` effect on theme switches (stale `body` colour in shots, transitions under e2e measurement) is a follow-up ds or tools change, not part of 0003 — outside this change's paths and not blocking it once the sections set their own colour by: agent
 - 2026-11-10 validate: round 3 — start
 - 2026-11-10 validate: round 3 — no critical or required; 1 optional open (Plans Default story ends focused); validate done
+- 2026-11-10 integrate: start
+- 2026-11-10 integrate: done — nothing to wire beyond refine (app, e2e project and Pages pick up `apps/landing`); pnpm check 9/9 green at b4547cc; denylist clean with the real list; pnpm evidence complete

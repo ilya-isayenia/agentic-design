@@ -8,9 +8,9 @@
 | parent | — |
 | type | feature |
 | size | XL |
-| status | open |
+| status | waiting |
 | stage | child 1 |
-| waiting for | — |
+| waiting for | merge of 0003, then re-plan |
 | branch | change/0002-landing-page |
 | prototype rounds | 0 |
 | review rounds | 0 |

@@ -16,3 +16,4 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 decision (plan): accept the plan as written — scaffold first keeps the ds PR free of landing code by: agent
 - 2026-11-10 plan: accepted — 4 children, build order as written
 - 2026-11-10 child 1: start — 0003-scaffold-navigation on change/0003-scaffold-navigation, branched from the parent branch
+- 2026-11-10 child 1 (0003-scaffold-navigation): pr-open — waiting for merge, then re-plan

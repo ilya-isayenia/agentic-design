@@ -8,8 +8,8 @@
 | parent | 0002-landing-page |
 | type | feature |
 | size | M |
-| status | open |
-| stage | validate |
+| status | done |
+| stage | merge |
 | waiting for | — |
 | branch | change/0003-scaffold-navigation |
 | prototype rounds | 0 |
