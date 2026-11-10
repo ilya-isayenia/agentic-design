@@ -125,7 +125,7 @@ Tokens:
 - target size: footer links `inline-flex min-h-12 items-center underline`;
 - motion: none.
 
-Stories: none (see "Assumption: no section stories in this child" below).
+Stories: none for App; the frame is proven by the e2e scenarios.
 
 ### Hero placeholder (new, `apps/landing/src/sections/Hero.vue`)
 No props, slots, events or v-model. A `<section>` with `<h1 class="font-display text-h1 font-extrabold uppercase">`. The text comes from `HERO.heading` in `src/content/hero.ts`. Padding `py-12`, inside `mx-auto max-w-page px-4 md:px-8`. Child 3 replaces the body and may change the heading's size (`text-display` is allowed). Child 3 keeps the `h1` as the page's only one.
@@ -204,7 +204,7 @@ Details:
 - `vite.config.ts`: `base: '/agentic-design/landing/'`, plugins vue + tailwindcss, no alias, `server.port` 5174, `preview.port` 4175.
 - `src/**` covers `main.ts`, `App.vue`, `composables/useTheme.ts` + `.test.ts`, `sections/Hero.vue`, `sections/Plans.vue`, `content/frame.ts`, `content/hero.ts`, `content/plans.ts`, and `styles.css` only if the Tailwind fallback below is needed.
 
-Not touched: `packages/ui/**` (the parent log keeps this child off the design system), `apps/web/**`, `tests/e2e/playwright.config.ts` and `tools/apps.mjs` (both already find `apps/*`), `tests/visual/**`.
+Not touched: `packages/ui/**` (the parent log keeps this child off the design system), `apps/web/**`, `tests/e2e/playwright.config.ts` and `tools/apps.mjs` (both already find `apps/*`), `tests/visual/**` except the baselines `pnpm test:visual:update` writes for the two section Matrix stories.
 
 ## Assumptions
 
@@ -218,7 +218,7 @@ Not touched: `packages/ui/**` (the parent log keeps this child off the design sy
 - **Live preference.** Assumption: the page follows a live system preference change when `?mode=` is absent. The product spec says the page "follows the system preference", and a page that ignored a change until reload would contradict the system after the visitor's OS switches at dusk.
 - **Brand and mode are independent.** Assumption: `?brand=lumen` alone still gives the system's mode, not light as in `apps/web`. The product is pulse, `?brand=` exists only for shots and e2e, and those always pass both values.
 - **First frame.** Assumption: a visitor whose system prefers light may see one dark frame before the module script runs, because `index.html` carries `data-mode="dark"`. There is no inline script in `index.html` to avoid this, because it would be a second copy of the theme rule that drifts from `useTheme`.
-- **No section stories in this child.** Assumption: `Hero` and `Plans` are placeholders holding one heading each. Their `Landing/Hero` and `Landing/Plans` stories and Matrix belong to children 3 and 4 (plan rows 3 and 4). A Matrix story now would add visual baselines that those children replace at once. The frame is proven by the e2e scenarios and shots.
+- **Section stories.** `apps/landing/src/sections/Hero.stories.ts` (`Landing/Hero`) and `Plans.stories.ts` (`Landing/Plans`) each have `Default` and `Matrix` (`ThemeMatrix`, fullscreen), as the stack profile's "A new app" asks; children 3 and 4 add their states and re-baseline the Matrix.
 - **No placeholder text.** Assumption: the placeholders show only their final headings, with no "coming soon" copy. Between this child and child 4 the page reads as a heading-only outline.
 
 ## Out of scope
@@ -226,7 +226,6 @@ Not touched: `packages/ui/**` (the parent log keeps this child off the design sy
 - The hero's lead, offer line and calls to action; "See the plans" and the `#plans` scroll and focus behaviour, including opening the page at `#plans` (child 3).
 - `Button` with `href` (child 2); nothing in this child is styled as a button.
 - Plan cards, prices, the `@web` alias and the `pricing.md` line (child 4); the full Tab order of the finished page (child 4's e2e).
-- Section stories and Matrix stories, visual baselines for the landing.
 - A theme or brand switcher, storing the theme, a no-JavaScript fallback, a root `pnpm dev` script for the landing, changes to `docs/getting-started.md`.
 - Legal pages of the landing's own; a `nav` landmark (the page has no navigation menu).
 

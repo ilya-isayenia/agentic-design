@@ -4,7 +4,12 @@
     "375",
     "1280"
   ],
-  "stories": [],
+  "stories": [
+    "landing-hero--default",
+    "landing-hero--matrix",
+    "landing-plans--default",
+    "landing-plans--matrix"
+  ],
   "routes": [
     {
       "route": "/",
@@ -33,7 +38,7 @@
     },
     "success": {
       "status": "pass",
-      "evidence": "e2e tests/e2e/landing/smoke.spec.ts › frame renders, › title and description, › legal links open the signup app's placeholders"
+      "evidence": "e2e tests/e2e/landing/smoke.spec.ts › frame renders, › title and description, › legal links open the signup app's placeholders; stories Landing/Hero › Default, Matrix and Landing/Plans › Default, Matrix (h1 and h2#plans with tabindex -1, nothing focusable in the placeholders, all six themes, axe clean)"
     },
     "permission": {
       "status": "not-applicable",
