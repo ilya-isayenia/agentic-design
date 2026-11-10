@@ -12,3 +12,6 @@ Decision lines: `- <YYYY-MM-DD> decision (<stage>): <what was decided> — <why>
 - 2026-11-10 validate: round 1 — 4 required (design 3, code 1), 2 optional, a11y clean; fix round 1
 - 2026-11-10 validate: fix round 1 — r1 #1, #3–#6 fixed; #2 layout fixed, shot evidence blocked: the shots tool cannot press a key in a route state; pnpm check green
 - 2026-11-10 waiting (validate): evidence for the "skip link focused" state — (a) accept the e2e test as evidence, (b) a tools change adding `keys` to route states, (c) a Landing/Frame story with a play function
+- 2026-11-10 decision (validate): option (a) — the e2e test is the evidence for the skip-link-focused state; it checks the link is visible, does not cover the wordmark at 375 and 1280 px, and that Enter moves focus to `main` by: agent
+- 2026-11-10 decision (validate): a `keys` option for route states in `pnpm shots` and the `apps/web` skip-link overlap (`apps/web/src/App.vue:25`) are follow-up changes, not part of 0003 by: agent
+- 2026-11-10 validate: round 2 — start
