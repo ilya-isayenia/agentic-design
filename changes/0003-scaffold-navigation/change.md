@@ -9,7 +9,7 @@
 | type | feature |
 | size | M |
 | status | open |
-| stage | spec |
+| stage | validate |
 | waiting for | — |
 | branch | change/0003-scaffold-navigation |
 | prototype rounds | 0 |
