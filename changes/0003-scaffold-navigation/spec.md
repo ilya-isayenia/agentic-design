@@ -131,7 +131,7 @@ Stories: none (see "Assumption: no section stories in this child" below).
 No props, slots, events or v-model. A `<section>` with `<h1 class="font-display text-h1 font-extrabold uppercase">`. The text comes from `HERO.heading` in `src/content/hero.ts`. Padding `py-12`, inside `mx-auto max-w-page px-4 md:px-8`. Child 3 replaces the body and may change the heading's size (`text-display` is allowed). Child 3 keeps the `h1` as the page's only one.
 
 ### Plans placeholder (new, `apps/landing/src/sections/Plans.vue`)
-No props, slots, events or v-model. A `<section>` with `<h2 id="plans" tabindex="-1" class="font-display text-h2 font-extrabold uppercase">`, text from `PLANS.heading` in `src/content/plans.ts`, same padding and width as the hero. Child 4 fills it and keeps `id="plans"` and `tabindex="-1"`.
+No props, slots, events or v-model. A `<section>` with `<h2 id="plans" tabindex="-1" class="font-display text-h2 font-semibold uppercase">`, text from `PLANS.heading` in `src/content/plans.ts`, same padding and width as the hero. Child 4 fills it and keeps `id="plans"` and `tabindex="-1"`.
 
 ### useTheme (new composable, `apps/landing/src/composables/useTheme.ts`)
 | Export | Signature | Notes |
